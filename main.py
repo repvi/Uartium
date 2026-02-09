@@ -49,7 +49,7 @@ def main() -> None:
         print("[Uartium] No --port given → running in DEMO mode (fake messages)")
         backend = DemoSerialBackend(interval=args.interval)
 
-    app = UartiumApp(backend=backend)
+    app = UartiumApp(backend=backend, initial_baudrate=args.baud)
     app.build()
     app.run()
 

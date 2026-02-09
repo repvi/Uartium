@@ -1,0 +1,11 @@
+{
+  "theme": "dark",
+  "level_filters": {
+    "INFO": true,
+    "WARNING": true,
+    "ERROR": true,
+    "DEBUG": true
+  },
+  "stats_visible": true,
+  "last_saved": "2026-02-08T20:00:14.683663"
+}

@@ -1,0 +1,36 @@
+timestamp,event,message,key,value
+8877,DEBUG,Motor telemetry,rpm,1317
+8877,DEBUG,Motor telemetry,current,1.22
+8877,DEBUG,Motor telemetry,voltage,4.0
+8877,DEBUG,Motor telemetry,temp,22.9
+8877,DEBUG,Motor telemetry,torque,0.28
+8877,DEBUG,Motor telemetry,efficiency,93.2
+7970,INFO,Sensor readings,temp,40.6
+7970,INFO,Sensor readings,humidity,38.1
+7970,INFO,Sensor readings,pressure,1026.5
+7970,INFO,Sensor readings,altitude,408.4
+1770578929,INFO,"GPS fix acquired: 40.7128 N, 74.0060 W",,
+7571,INFO,Power status,voltage,4.28
+7571,INFO,Power status,current,1.09
+7571,INFO,Power status,power,8.22
+7571,INFO,Power status,battery,91
+7571,INFO,Power status,charging,0
+1770578930,INFO,Reading temperature: 23.4 °C,,
+4615,INFO,Voltage check,voltage,4.95
+4615,INFO,Voltage check,current,0.5
+1770578933,INFO,Reading humidity: 61 %,,
+1770578933,INFO,Uptime: 00:42:17,,
+9914,INFO,Voltage check,voltage,4.15
+9914,INFO,Voltage check,current,0.21
+8120,INFO,Power status,voltage,5.12
+8120,INFO,Power status,current,1.52
+8120,INFO,Power status,power,7.13
+8120,INFO,Power status,battery,18
+8120,INFO,Power status,charging,0
+1770578926,WARNING,Flash write near sector limit,,
+1770578927,WARNING,Flash write near sector limit,,
+1770578928,WARNING,Flash write near sector limit,,
+1770578926,ERROR,CRC mismatch on packet #1042,,
+1770578927,ERROR,CRC mismatch on packet #1042,,
+1770578928,ERROR,I2C NACK from address 0x48,,
+1770578932,ERROR,CRC mismatch on packet #1042,,
