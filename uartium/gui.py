@@ -491,15 +491,23 @@ class UartiumApp:
                 no_title_bar=True,
                 no_resize=True,
                 no_move=True,
-                no_background=True,
-                no_scrollbar=True,
+                no_background=False,
+                no_scrollbar=False,
                 no_collapse=True,
                 no_saved_settings=True,
                 no_focus_on_appearing=True,
-                autosize=True,
+                autosize=False,
+                width=120,
+                height=150,
             ):
-                dpg.add_text("", tag=self._timeline_tooltip_header, color=(139, 233, 253, 255))
-                dpg.add_text("", tag=self._timeline_tooltip_body, color=(220, 220, 230, 255))
+                dpg.add_text("", tag=self._timeline_tooltip_header, color=(139, 233, 253, 255), wrap=110)
+                dpg.add_text("", tag=self._timeline_tooltip_body, color=(220, 220, 230, 255), wrap=110)
+            # Tooltip theme: semi-transparent background and tighter padding
+            with dpg.theme() as _tooltip_theme:
+                with dpg.theme_component(dpg.mvAll):
+                    dpg.add_theme_color(dpg.mvThemeCol_WindowBg, (24, 24, 32, 128))
+                    dpg.add_theme_style(dpg.mvStyleVar_WindowPadding, 8, 6)
+            dpg.bind_item_theme(self._timeline_tooltip_window, _tooltip_theme)
 
         # ---- Enhanced button themes ----
         with dpg.theme() as start_theme:
@@ -771,26 +779,35 @@ class UartiumApp:
         if not dpg.does_item_exist("timeline_plot"):
             return
 
-        # Hide tooltip if mouse is over the tooltip window itself
-        if dpg.does_item_exist(self._timeline_tooltip_window) and dpg.is_item_hovered(self._timeline_tooltip_window):
-            dpg.configure_item(self._timeline_tooltip_window, show=False)
-            self._last_hovered_msg_id = None
-            self._timeline_tooltip_pos = None
-            self._pinned_msg = None
-            return
-
-        # Use plot bounds to determine hover (more reliable than is_item_hovered)
+        # Check if mouse is outside the plot area
         try:
             mx_screen, my_screen = dpg.get_mouse_pos()
             rect_min = dpg.get_item_rect_min("timeline_plot")
             rect_max = dpg.get_item_rect_max("timeline_plot")
+            
             if not (rect_min[0] <= mx_screen <= rect_max[0] and rect_min[1] <= my_screen <= rect_max[1]):
+                # Mouse left the plot - hide tooltip
                 if dpg.does_item_exist(self._timeline_tooltip_window):
                     dpg.configure_item(self._timeline_tooltip_window, show=False)
                 self._last_hovered_msg_id = None
                 self._timeline_tooltip_pos = None
                 self._pinned_msg = None
                 return
+
+            # If mouse is over the tooltip window, hide it to avoid overlap glitches
+            if dpg.does_item_exist(self._timeline_tooltip_window):
+                try:
+                    tip_min = dpg.get_item_rect_min(self._timeline_tooltip_window)
+                    tip_max = dpg.get_item_rect_max(self._timeline_tooltip_window)
+                    if tip_min and tip_max:
+                        if tip_min[0] <= mx_screen <= tip_max[0] and tip_min[1] <= my_screen <= tip_max[1]:
+                            dpg.configure_item(self._timeline_tooltip_window, show=False)
+                            self._last_hovered_msg_id = None
+                            self._timeline_tooltip_pos = None
+                            self._pinned_msg = None
+                            return
+                except Exception:
+                    pass
         except Exception:
             return
 
@@ -803,7 +820,7 @@ class UartiumApp:
             except Exception:
                 return
 
-        # Determine hover radius in plot units based on ~10px tolerance
+        # Determine hover radius in plot units based on pixel tolerance
         try:
             rect_width = max(1.0, rect_max[0] - rect_min[0])
             rect_height = max(1.0, rect_max[1] - rect_min[1])
@@ -811,11 +828,24 @@ class UartiumApp:
             y_min, y_max = dpg.get_axis_limits("timeline_y_axis")
             x_range = max(0.001, x_max - x_min)
             y_range = max(0.001, y_max - y_min)
-            max_dx = x_range * (6.0 / rect_width)
-            max_dy = y_range * (6.0 / rect_height)
+            # Smaller radius to acquire hover, larger radius to keep it (prevents flicker)
+            max_dx_show = x_range * (10.0 / rect_width)
+            max_dy_show = y_range * (10.0 / rect_height)
+            max_dx_hide = x_range * (14.0 / rect_width)
+            max_dy_hide = y_range * (14.0 / rect_height)
+            # If mouse is over axes (outside data area), hide immediately
+            if mouse_x < x_min or mouse_x > x_max or mouse_y < y_min or mouse_y > y_max:
+                if dpg.does_item_exist(self._timeline_tooltip_window):
+                    dpg.configure_item(self._timeline_tooltip_window, show=False)
+                self._last_hovered_msg_id = None
+                self._timeline_tooltip_pos = None
+                if self._pinned_msg is None:
+                    return
         except Exception:
-            max_dx = 1.0
-            max_dy = 0.9
+            max_dx_show = 1.0
+            max_dy_show = 0.9
+            max_dx_hide = 1.4
+            max_dy_hide = 1.3
 
         best_msg = None
         best_level = None
@@ -823,12 +853,12 @@ class UartiumApp:
         best_x = None
         best_y = None
 
+        last_msg_id = self._last_hovered_msg_id
+
         for level in LEVEL_Y:
             if not self._level_filters.get(level, True):
                 continue
             level_y = LEVEL_Y[level]
-            if abs(mouse_y - level_y) > max_dy:
-                continue
 
             x_list = self._timeline_x[level]
             if not x_list:
@@ -837,12 +867,26 @@ class UartiumApp:
             # Find nearest point on this level by x distance
             for idx, x_val in enumerate(x_list):
                 dx = abs(mouse_x - x_val)
-                if dx <= max_dx and (best_dx is None or dx < best_dx):
+                msg = self._timeline_messages[level][idx]
+                msg_id = id(msg)
+                dy = abs(mouse_y - level_y)
+                within_show = dx <= max_dx_show and dy <= max_dy_show
+                within_hide = msg_id == last_msg_id and dx <= max_dx_hide and dy <= max_dy_hide
+                if (within_show or within_hide) and (best_dx is None or dx < best_dx):
                     best_dx = dx
                     best_level = level
-                    best_msg = self._timeline_messages[level][idx]
+                    best_msg = msg
                     best_x = x_val
                     best_y = level_y
+        # If no dot found, hide tooltip
+        if best_msg is None:
+            if dpg.does_item_exist(self._timeline_tooltip_window):
+                dpg.configure_item(self._timeline_tooltip_window, show=False)
+            self._last_hovered_msg_id = None
+            self._timeline_tooltip_pos = None
+            self._pinned_msg = None
+            return
+
 
         # Click to pin full details (message + variables)
         if dpg.is_item_clicked("timeline_plot"):
@@ -870,14 +914,8 @@ class UartiumApp:
 
         # Hover shows only the message (no variables), unless pinned
         if self._pinned_msg is None:
-            if best_msg is None:
-                if dpg.does_item_exist(self._timeline_tooltip_window):
-                    dpg.configure_item(self._timeline_tooltip_window, show=False)
-                self._last_hovered_msg_id = None
-                self._timeline_tooltip_pos = None
-                return
-
             msg_id = id(best_msg)
+            # Update content and position only when switching to a different message
             if msg_id != self._last_hovered_msg_id:
                 ts = time.strftime("%H:%M:%S", time.localtime(best_msg.get("timestamp", time.time())))
                 header = f"{ts}  {best_level}"
@@ -885,13 +923,24 @@ class UartiumApp:
                 dpg.set_value(self._timeline_tooltip_header, header)
                 dpg.set_value(self._timeline_tooltip_body, line)
                 self._last_hovered_msg_id = msg_id
-                try:
-                    mx_screen, my_screen = dpg.get_mouse_pos()
-                    self._timeline_tooltip_pos = (int(mx_screen) + 12, int(my_screen) + 12)
-                except Exception:
-                    self._timeline_tooltip_pos = None
+                # Position tooltip in a fixed spot at the top-left of the timeline graph
+                if not self._timeline_tooltip_pos:
+                    # Calculate position once: top-left inside the plot area
+                    try:
+                            rect_min = dpg.get_item_rect_min("timeline_plot")
+                            rect_max = dpg.get_item_rect_max("timeline_plot")
+                            # Right-align the tooltip inside the plot with small padding
+                            tooltip_w = 120
+                            padding = 12
+                            tooltip_x = rect_max[0] - tooltip_w - padding
+                            # place tooltip at the top-right inside the plot area
+                            tooltip_y = rect_min[1] + padding
+                            self._timeline_tooltip_pos = (int(tooltip_x), int(tooltip_y))
+                    except Exception:
+                        # Fallback to a default position
+                        self._timeline_tooltip_pos = (800, 200)
 
-        # Place tooltip at stored position (anchored to first hover/click)
+        # Place tooltip at stored position (anchored to the dot)
         if dpg.does_item_exist(self._timeline_tooltip_window):
             if self._timeline_tooltip_pos:
                 dpg.configure_item(self._timeline_tooltip_window, show=True)
