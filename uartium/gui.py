@@ -166,6 +166,12 @@ class UartiumApp:
         self._plot_series: dict[str, int | str] = {}
         self._x_axis_tag: int | str = 0
         self._baud_input: int | str = 0
+        self._timeline_tooltip_window = "timeline_tooltip"
+        self._timeline_tooltip_header = "timeline_tooltip_header"
+        self._timeline_tooltip_body = "timeline_tooltip_body"
+        self._last_hovered_msg_id: int | None = None
+        self._timeline_tooltip_pos: tuple[int, int] | None = None
+        self._pinned_msg: dict | None = None
         
         # Statistics tracking
         self._level_counts = {"INFO": 0, "WARNING": 0, "ERROR": 0, "DEBUG": 0}
@@ -331,22 +337,15 @@ class UartiumApp:
             with dpg.child_window(height=75, border=False, tag="toolbar_panel"):
                 dpg.add_spacer(height=8)
                 with dpg.group(horizontal=True):
-                    dpg.add_spacer(width=8)
                     # Main control buttons
                     dpg.add_button(label="START", tag="btn_start", callback=self._on_start, width=100, height=38)
-                    dpg.add_spacer(width=6)
                     dpg.add_button(label="STOP", tag="btn_stop", callback=self._on_stop, enabled=False, width=100, height=38)
-                    
-                    dpg.add_spacer(width=30)
-                    
+                                        
                     # Port configuration group
                     with dpg.group(horizontal=True):
                         dpg.add_text("Port:", color=(200, 200, 210, 255))
-                        dpg.add_spacer(width=6)
                         dpg.add_input_text(default_value="COM3", width=90, tag="port_input")
-                        dpg.add_spacer(width=16)
                         dpg.add_text("Baud:", color=(200, 200, 210, 255))
-                        dpg.add_spacer(width=6)
                         self._baud_input = dpg.add_combo(
                             items=["9600", "19200", "38400", "57600", "115200", "230400", "460800", "921600"],
                             default_value=str(self._initial_baudrate),
@@ -354,23 +353,18 @@ class UartiumApp:
                             tag="baud_combo",
                             callback=self._on_baud_changed
                         )
-                    
-                    dpg.add_spacer(width=30)
-                    
+                                        
                     # Utility buttons
                     dpg.add_button(label="Statistics", tag="btn_toggle_stats", callback=self._toggle_statistics, width=90, height=28)
-                    dpg.add_spacer(width=6)
                     dpg.add_button(label="Export CSV", callback=self._export_to_csv, tag="btn_export_csv", width=90, height=28)
-                    dpg.add_spacer(width=6)
+                    # Status line
+                    with dpg.group(horizontal=True):
+                        self._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
+                        self._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
+
+                    dpg.add_spacer(width=20)
                     dpg.add_button(label="Settings", callback=lambda: dpg.show_item("settings_window"), width=80, height=28)
                 
-                # Status line
-                dpg.add_spacer(height=4)
-                with dpg.group(horizontal=True):
-                    dpg.add_spacer(width=12)
-                    self._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
-                    dpg.add_spacer(width=20)
-                    self._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
 
             dpg.add_spacer(height=4)
 
@@ -403,6 +397,7 @@ class UartiumApp:
                 with dpg.child_window(width=700, border=False):
                     # Message Log
                     with dpg.group(horizontal=True):
+                        dpg.add_spacer(width=8)
                         dpg.add_text("MESSAGE LOG", color=(139, 233, 253, 255))
                     dpg.add_spacer(height=4)
                     self._log_parent = dpg.add_child_window(height=420, border=True, tag="log_window")
@@ -411,6 +406,7 @@ class UartiumApp:
                     
                     # Data Monitor
                     with dpg.group(horizontal=True):
+                        dpg.add_spacer(width=8)
                         dpg.add_text("DATA MONITOR", color=(139, 233, 253, 255))
                     dpg.add_spacer(height=4)
                     with dpg.child_window(height=220, border=True, tag="data_monitor_window"):
@@ -425,15 +421,18 @@ class UartiumApp:
                 dpg.add_spacer(width=8)
                 
                 # RIGHT COLUMN: Timeline chart
-                with dpg.child_window(border=True, no_scrollbar=False):
-                    dpg.add_spacer(height=4)
-                    # Title and filters on same line
+                with dpg.child_window(border=True):
+                    dpg.add_spacer(height=6)
+                    # Title and filters
                     with dpg.group(horizontal=True):
                         dpg.add_spacer(width=8)
                         dpg.add_text("EVENT TIMELINE", color=(139, 233, 253, 255))
-                        dpg.add_spacer(width=20)
+                    dpg.add_spacer(height=2)
+                    # Static filter rows (no scrolling)
+                    with dpg.group(horizontal=True):
+                        dpg.add_spacer(width=8)
                         dpg.add_text("Show:", color=(180, 180, 190, 255))
-                        dpg.add_spacer(width=6)
+                        dpg.add_spacer(width=1)
                         dpg.add_checkbox(
                             label="INFO",
                             default_value=self._level_filters["INFO"],
@@ -441,7 +440,7 @@ class UartiumApp:
                             user_data="INFO",
                             tag=f"filter_INFO"
                         )
-                        dpg.add_spacer(width=4)
+                        dpg.add_spacer(width=1)
                         dpg.add_checkbox(
                             label="WARN",
                             default_value=self._level_filters["WARNING"],
@@ -449,15 +448,15 @@ class UartiumApp:
                             user_data="WARNING",
                             tag=f"filter_WARNING"
                         )
-                        dpg.add_spacer(width=4)
+                        dpg.add_spacer(width=1)
                         dpg.add_checkbox(
                             label="ERROR",
                             default_value=self._level_filters["ERROR"],
                             callback=self._on_filter_changed,
                             user_data="ERROR",
                             tag=f"filter_ERROR"
-                        )
-                        dpg.add_spacer(width=4)
+                            )
+                        dpg.add_spacer(width=1)
                         dpg.add_checkbox(
                             label="DEBUG",
                             default_value=self._level_filters["DEBUG"],
@@ -466,8 +465,8 @@ class UartiumApp:
                             tag=f"filter_DEBUG"
                         )
                     
-                    dpg.add_spacer(height=8)
-                    with dpg.plot(label="##timeline", height=-35, width=-1, tag="timeline_plot"):
+                    dpg.add_spacer(height=6)
+                    with dpg.plot(label="##timeline", height=-20, width=-20, tag="timeline_plot"):
                         self._x_axis_tag = dpg.add_plot_axis(dpg.mvXAxis, label="Time (s)")
                         with dpg.plot_axis(dpg.mvYAxis, label="Level", tag="timeline_y_axis"):
                             dpg.set_axis_limits("timeline_y_axis", 0.0, 5.0)
@@ -484,6 +483,23 @@ class UartiumApp:
                                         dpg.add_theme_color(dpg.mvPlotCol_MarkerOutline, col255, category=dpg.mvThemeCat_Plots)
                                         dpg.add_theme_style(dpg.mvPlotStyleVar_MarkerSize, 5, category=dpg.mvThemeCat_Plots)
                                 dpg.bind_item_theme(series_tag, s_theme)
+
+            # ---- timeline hover tooltip ----
+            with dpg.window(
+                tag=self._timeline_tooltip_window,
+                show=False,
+                no_title_bar=True,
+                no_resize=True,
+                no_move=True,
+                no_background=True,
+                no_scrollbar=True,
+                no_collapse=True,
+                no_saved_settings=True,
+                no_focus_on_appearing=True,
+                autosize=True,
+            ):
+                dpg.add_text("", tag=self._timeline_tooltip_header, color=(139, 233, 253, 255))
+                dpg.add_text("", tag=self._timeline_tooltip_body, color=(220, 220, 230, 255))
 
         # ---- Enhanced button themes ----
         with dpg.theme() as start_theme:
@@ -533,6 +549,7 @@ class UartiumApp:
         # main render loop with message polling
         while dpg.is_dearpygui_running():
             self._poll_messages()
+            self._update_timeline_hover()
             dpg.render_dearpygui_frame()
 
         # cleanup
@@ -748,6 +765,139 @@ class UartiumApp:
 
         # auto-fit x-axis
         dpg.fit_axis_data(self._x_axis_tag)
+
+    def _update_timeline_hover(self) -> None:
+        """Show a tooltip when hovering near a timeline point."""
+        if not dpg.does_item_exist("timeline_plot"):
+            return
+
+        # Hide tooltip if mouse is over the tooltip window itself
+        if dpg.does_item_exist(self._timeline_tooltip_window) and dpg.is_item_hovered(self._timeline_tooltip_window):
+            dpg.configure_item(self._timeline_tooltip_window, show=False)
+            self._last_hovered_msg_id = None
+            self._timeline_tooltip_pos = None
+            self._pinned_msg = None
+            return
+
+        # Use plot bounds to determine hover (more reliable than is_item_hovered)
+        try:
+            mx_screen, my_screen = dpg.get_mouse_pos()
+            rect_min = dpg.get_item_rect_min("timeline_plot")
+            rect_max = dpg.get_item_rect_max("timeline_plot")
+            if not (rect_min[0] <= mx_screen <= rect_max[0] and rect_min[1] <= my_screen <= rect_max[1]):
+                if dpg.does_item_exist(self._timeline_tooltip_window):
+                    dpg.configure_item(self._timeline_tooltip_window, show=False)
+                self._last_hovered_msg_id = None
+                self._timeline_tooltip_pos = None
+                self._pinned_msg = None
+                return
+        except Exception:
+            return
+
+        # Try both plot mouse APIs for compatibility
+        try:
+            mouse_x, mouse_y = dpg.get_plot_mouse_pos("timeline_plot")
+        except Exception:
+            try:
+                mouse_x, mouse_y = dpg.get_plot_mouse_pos()
+            except Exception:
+                return
+
+        # Determine hover radius in plot units based on ~10px tolerance
+        try:
+            rect_width = max(1.0, rect_max[0] - rect_min[0])
+            rect_height = max(1.0, rect_max[1] - rect_min[1])
+            x_min, x_max = dpg.get_axis_limits(self._x_axis_tag)
+            y_min, y_max = dpg.get_axis_limits("timeline_y_axis")
+            x_range = max(0.001, x_max - x_min)
+            y_range = max(0.001, y_max - y_min)
+            max_dx = x_range * (6.0 / rect_width)
+            max_dy = y_range * (6.0 / rect_height)
+        except Exception:
+            max_dx = 1.0
+            max_dy = 0.9
+
+        best_msg = None
+        best_level = None
+        best_dx = None
+        best_x = None
+        best_y = None
+
+        for level in LEVEL_Y:
+            if not self._level_filters.get(level, True):
+                continue
+            level_y = LEVEL_Y[level]
+            if abs(mouse_y - level_y) > max_dy:
+                continue
+
+            x_list = self._timeline_x[level]
+            if not x_list:
+                continue
+
+            # Find nearest point on this level by x distance
+            for idx, x_val in enumerate(x_list):
+                dx = abs(mouse_x - x_val)
+                if dx <= max_dx and (best_dx is None or dx < best_dx):
+                    best_dx = dx
+                    best_level = level
+                    best_msg = self._timeline_messages[level][idx]
+                    best_x = x_val
+                    best_y = level_y
+
+        # Click to pin full details (message + variables)
+        if dpg.is_item_clicked("timeline_plot"):
+            if best_msg is not None:
+                self._pinned_msg = best_msg
+                ts = time.strftime("%H:%M:%S", time.localtime(best_msg.get("timestamp", time.time())))
+                header = f"{ts}  {best_level}"
+                lines = [best_msg.get("text", "").strip() or "(no message)"]
+                data_fields = best_msg.get("data_fields", {})
+                if data_fields:
+                    lines.append("")
+                    for var_name, info in data_fields.items():
+                        val_str = str(info.get("value", "N/A"))
+                        type_str = info.get("type", "str")
+                        lines.append(f"{var_name}:{type_str} = {val_str}")
+                dpg.set_value(self._timeline_tooltip_header, header)
+                dpg.set_value(self._timeline_tooltip_body, "\n".join(lines))
+                try:
+                    mx_screen, my_screen = dpg.get_mouse_pos()
+                    self._timeline_tooltip_pos = (int(mx_screen) + 12, int(my_screen) + 12)
+                except Exception:
+                    self._timeline_tooltip_pos = None
+            else:
+                self._pinned_msg = None
+
+        # Hover shows only the message (no variables), unless pinned
+        if self._pinned_msg is None:
+            if best_msg is None:
+                if dpg.does_item_exist(self._timeline_tooltip_window):
+                    dpg.configure_item(self._timeline_tooltip_window, show=False)
+                self._last_hovered_msg_id = None
+                self._timeline_tooltip_pos = None
+                return
+
+            msg_id = id(best_msg)
+            if msg_id != self._last_hovered_msg_id:
+                ts = time.strftime("%H:%M:%S", time.localtime(best_msg.get("timestamp", time.time())))
+                header = f"{ts}  {best_level}"
+                line = best_msg.get("text", "").strip() or "(no message)"
+                dpg.set_value(self._timeline_tooltip_header, header)
+                dpg.set_value(self._timeline_tooltip_body, line)
+                self._last_hovered_msg_id = msg_id
+                try:
+                    mx_screen, my_screen = dpg.get_mouse_pos()
+                    self._timeline_tooltip_pos = (int(mx_screen) + 12, int(my_screen) + 12)
+                except Exception:
+                    self._timeline_tooltip_pos = None
+
+        # Place tooltip at stored position (anchored to first hover/click)
+        if dpg.does_item_exist(self._timeline_tooltip_window):
+            if self._timeline_tooltip_pos:
+                dpg.configure_item(self._timeline_tooltip_window, show=True)
+                dpg.set_item_pos(self._timeline_tooltip_window, list(self._timeline_tooltip_pos))
+            else:
+                dpg.configure_item(self._timeline_tooltip_window, show=True)
 
     def _update_data_monitor(self, fields: dict, level: str) -> None:
         """Update the Data Monitor table with the latest variable values.

@@ -50,3 +50,282 @@
 2026-02-08 20:03:29,057 - uartium.gui - INFO - UI build completed successfully
 2026-02-08 20:03:29,378 - uartium.gui - INFO - Uartium application started successfully
 2026-02-08 20:03:34,291 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:05:00,791 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:05:00,792 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:05:00,796 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:05:01,023 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:06:08,407 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:06:08,408 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:06:08,412 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:06:08,678 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:06:15,243 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:07:05,654 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:07:05,655 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:07:05,659 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:07:05,882 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:07:10,036 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:08:20,514 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:08:20,516 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:08:20,530 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:08:20,784 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:10:05,452 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:10:05,452 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:10:05,458 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:10:05,716 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:10:20,047 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:10:36,275 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:36,275 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:36,856 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:36,857 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:37,339 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:37,340 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:37,622 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:37,622 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:37,888 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:37,888 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:38,137 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:38,138 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:38,403 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:38,404 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:38,672 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:38,672 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:39,087 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:39,088 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:39,770 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:39,771 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:40,973 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:40,974 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:52,534 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:52,535 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:10:53,502 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:53,502 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:10:56,234 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:56,236 - uartium.gui - INFO - Theme changed to: light
+2026-02-08 20:10:58,531 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:58,532 - uartium.gui - INFO - Theme changed to: dark
+2026-02-08 20:10:59,183 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:10:59,184 - uartium.gui - INFO - Theme changed to: light
+2026-02-08 20:11:00,698 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:11:00,699 - uartium.gui - INFO - Theme changed to: dark
+2026-02-08 20:11:01,597 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:11:01,598 - uartium.gui - INFO - Theme changed to: light
+2026-02-08 20:11:03,194 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:11:03,195 - uartium.gui - INFO - Theme changed to: dark
+2026-02-08 20:11:04,381 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:11:04,382 - uartium.gui - INFO - Theme changed to: light
+2026-02-08 20:11:05,128 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:11:05,129 - uartium.gui - INFO - Theme changed to: dark
+2026-02-08 20:12:05,018 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:12:05,020 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:12:05,025 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:12:05,279 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:12:36,193 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:12:36,193 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:12:36,197 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:12:36,439 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:12:46,372 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:12:46,373 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:12:47,072 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:12:47,072 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:13:07,975 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:13:07,976 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:13:07,980 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:13:08,186 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:13:33,956 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:13:33,957 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:13:33,963 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:13:34,262 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:14:12,772 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:14:12,773 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:14:12,778 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:14:12,996 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:14:35,811 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:14:35,812 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:14:35,816 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:14:36,039 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:14:47,292 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:16:00,297 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:16:00,298 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:16:00,305 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:16:00,590 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:17:01,486 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:17:01,487 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:17:01,492 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:17:01,781 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:17:33,624 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:17:33,624 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:17:33,629 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:17:33,940 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:18:03,320 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:18:03,321 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:18:03,328 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:18:03,570 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:18:18,531 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:18:18,532 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:18:18,537 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:18:18,844 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:19:00,224 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:19:00,225 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:19:04,938 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:19:04,939 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:19:05,623 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:19:05,624 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:19:08,135 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:19:08,136 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:19:59,508 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:19:59,509 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:19:59,514 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:19:59,762 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:21:50,886 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:21:50,887 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:21:50,893 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:21:51,139 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:22:29,602 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:22:29,602 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:22:29,612 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:22:29,904 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:22:53,831 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:22:53,832 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:22:53,838 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:22:54,112 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:24:27,882 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:24:27,883 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:24:27,888 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:24:28,110 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:25:01,981 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:25:01,982 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:25:01,986 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:25:02,231 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:27:05,716 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:31:22,739 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:31:22,740 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:31:24,756 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:31:24,757 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:31:45,693 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:31:45,695 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:31:45,700 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:31:45,971 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:31:54,702 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:31:54,703 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:32:01,681 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:32:01,682 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:32:05,179 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:32:05,179 - uartium.gui - INFO - Statistics panel toggled: True
+2026-02-08 20:32:05,547 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:32:05,547 - uartium.gui - INFO - Statistics panel toggled: False
+2026-02-08 20:32:10,578 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:32:18,459 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:34:51,879 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:34:51,879 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:34:51,884 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:34:52,154 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:34:53,497 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:34:55,270 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:35:24,129 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:35:24,130 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:35:24,135 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:35:24,410 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:35:26,267 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:35:29,784 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:37:05,873 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:37:05,874 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:37:05,879 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:37:06,116 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:37:08,125 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:37:11,933 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:39:37,789 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:39:37,789 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:39:37,795 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:39:38,043 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:39:39,514 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:39:41,212 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:40:19,733 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:40:22,928 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:40:51,765 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:40:51,765 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:40:51,770 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:40:51,999 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:40:53,087 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:40:54,512 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:40:58,868 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:41:03,466 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:41:10,845 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:41:11,670 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:41:20,537 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:41:20,976 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 20:41:30,188 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:41:37,396 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:42:23,834 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:42:23,834 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:42:23,839 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:42:24,069 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:42:25,370 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:42:26,851 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:43:21,195 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:43:21,196 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:43:21,200 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:43:21,442 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:43:22,362 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:43:24,394 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:43:27,926 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:43:29,162 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:45:14,749 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:45:14,750 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:45:14,754 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:45:15,000 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:45:16,018 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:45:17,931 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:45:26,929 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:45:30,763 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:50:33,210 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:50:33,211 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:50:33,217 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:50:33,460 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:50:35,139 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:50:37,234 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:51:03,412 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:51:04,706 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:51:15,757 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:51:16,564 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:52:58,016 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:52:58,017 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:52:58,021 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:52:58,286 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:52:59,233 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:53:01,042 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:55:55,383 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:55:55,383 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:55:55,389 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:55:55,653 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:55:58,929 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 20:56:00,265 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 20:59:58,481 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 20:59:58,482 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 20:59:58,487 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 20:59:58,740 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 20:59:59,833 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 21:00:01,305 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 21:00:27,895 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 21:00:27,897 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 21:00:27,904 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 21:00:28,197 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 21:00:29,939 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 21:00:31,651 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 21:02:52,326 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 21:02:52,328 - uartium.gui - INFO - Theme changed to: light
+2026-02-08 21:02:56,430 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-08 21:02:56,431 - uartium.gui - INFO - Theme changed to: dark
+2026-02-08 21:03:09,441 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 21:03:10,234 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 21:04:19,756 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 21:04:19,757 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 21:04:19,761 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 21:04:19,987 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 21:04:20,814 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 21:04:23,452 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-08 21:05:05,843 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-08 21:05:05,844 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-08 21:05:05,849 - uartium.gui - INFO - UI build completed successfully
+2026-02-08 21:05:06,125 - uartium.gui - INFO - Uartium application started successfully
+2026-02-08 21:05:07,627 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-08 21:05:09,508 - uartium.gui - INFO - Serial monitoring stopped
