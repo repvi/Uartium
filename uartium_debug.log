@@ -711,3 +711,129 @@
 2026-02-09 20:14:29,822 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
 2026-02-09 20:14:35,037 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
 2026-02-09 20:14:46,419 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:19:30,053 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:19:30,054 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:19:30,058 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:19:30,320 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:19:31,755 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:19:33,960 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:19:42,751 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:19:45,692 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:22:09,873 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:22:09,873 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:22:09,878 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:22:10,142 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:23:20,827 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:23:20,828 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:23:20,835 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:23:21,110 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:26:15,300 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-09 20:26:15,303 - uartium.gui - INFO - Theme changed to: light
+2026-02-09 20:26:16,791 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-09 20:26:16,791 - uartium.gui - INFO - Theme changed to: dark
+2026-02-09 20:26:23,098 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:26:23,098 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:26:23,103 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:26:23,327 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:27:58,052 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 20:27:58,053 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 20:27:58,483 - uartium.gui - INFO - Switched to Real Serial mode: COM5 @ 9600
+2026-02-09 20:27:58,484 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM5 @ 9600
+2026-02-09 20:27:59,300 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 20:29:29,592 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:29:34,909 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 20:29:38,879 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:30:00,168 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:30:00,169 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:30:00,174 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:30:00,369 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:35:11,337 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:35:11,337 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:35:11,349 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:35:11,559 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:36:45,768 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:36:45,780 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:36:45,785 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:36:45,969 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:37:45,522 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:37:45,522 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:37:45,526 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:37:45,723 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:38:17,555 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:38:17,556 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:38:17,560 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:38:17,774 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:38:22,239 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:38:23,792 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:38:29,201 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:38:31,989 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:38:33,748 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:39:51,461 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:39:51,461 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:39:51,465 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:39:51,672 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:39:54,318 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:39:57,350 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:40:06,296 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 20:40:06,297 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 20:40:06,795 - uartium.gui - INFO - Switched to Real Serial mode: COM5 @ 9600
+2026-02-09 20:40:06,796 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM5 @ 9600
+2026-02-09 20:40:07,494 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 20:41:03,359 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:42:04,991 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:42:04,992 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:42:04,996 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:42:05,196 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:42:54,398 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:42:54,398 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:42:54,403 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:42:54,631 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:43:01,960 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:43:03,602 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:43:03,925 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:43:05,367 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:43:06,157 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:43:07,611 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:43:07,873 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:43:08,786 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:52:43,012 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:52:43,013 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:52:43,017 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:52:43,206 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:52:50,159 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:52:52,301 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 20:53:01,255 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 20:55:13,254 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:55:13,255 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:55:13,259 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:55:13,474 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:56:50,637 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:56:50,637 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:56:50,641 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:56:50,820 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:57:46,992 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:57:46,992 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:57:46,996 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:57:47,174 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:57:57,092 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 20:57:57,092 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 20:57:57,096 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 20:57:57,286 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 20:58:03,920 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 20:58:03,921 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 20:58:05,919 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 20:58:05,920 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 20:58:08,917 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 20:58:08,917 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 20:58:10,350 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 21:00:21,738 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 21:00:21,738 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 21:00:21,742 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 21:00:21,917 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 21:00:24,734 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 21:00:36,937 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 21:00:38,308 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 21:00:38,308 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 21:00:38,841 - uartium.gui - INFO - Switched to Real Serial mode: COM5 @ 9600
+2026-02-09 21:00:38,842 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM5 @ 9600
+2026-02-09 21:00:39,808 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud

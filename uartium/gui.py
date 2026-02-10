@@ -297,9 +297,15 @@ class UartiumApp:
                 # Increase default font size for better readability
                 default_font = dpg.add_font("C:/Windows/Fonts/segoeui.ttf", 16)
                 dpg.bind_font(default_font)
+                # Try loading Segoe MDL2 Assets for Windows icon glyphs (gear, etc.)
+                try:
+                    self._icon_font = dpg.add_font("C:/Windows/Fonts/segmdl2.ttf", 18)
+                except Exception:
+                    # font not available; proceed without icon font
+                    self._icon_font = None
             except:
                 # Fallback - use default DearPyGui font
-                pass
+                self._icon_font = None
 
         # ---- global theme ----
         self._apply_theme()
@@ -335,7 +341,8 @@ class UartiumApp:
         # ---- main viewport window ----
         with dpg.window(tag="primary_window"):
             # ===== CLEAN TOOLBAR - Arduino IDE Style =====
-            with dpg.child_window(height=75, border=False, tag="toolbar_panel"):
+            # Use a non-scrolling group container for the toolbar to avoid scroll behavior
+            with dpg.group(tag="toolbar_panel"):
                 dpg.add_spacer(height=8)
                 with dpg.group(horizontal=True):
                     # Main control buttons
@@ -369,19 +376,21 @@ class UartiumApp:
                     # Utility buttons
                     dpg.add_button(label="Statistics", tag="btn_toggle_stats", callback=self._toggle_statistics, width=90, height=28)
                     dpg.add_button(label="Export CSV", callback=self._export_to_csv, tag="btn_export_csv", width=90, height=28)
-                    # Status line
-                    with dpg.group(horizontal=True):
-                        self._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
-                        self._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
-
+                    dpg.add_button(label="Help", tag="btn_settings", callback=lambda: dpg.show_item("settings_window"), width=70, height=28)
                     dpg.add_spacer(width=20)
-                    dpg.add_button(label="Settings", callback=lambda: dpg.show_item("settings_window"), width=80, height=28)
+                # Status row below the toolbar controls (indented)
+                dpg.add_spacer(height=2)
+                with dpg.group(horizontal=True, tag="status_row"):
+                    dpg.add_spacer(width=18)
+                    self._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
+                    dpg.add_spacer(width=10)
+                    self._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
                 
 
-            dpg.add_spacer(height=4)
+            #dpg.add_spacer(height=0)  # Minimal spacing between toolbar and content
 
             # ===== COLLAPSIBLE STATISTICS PANEL =====
-            with dpg.child_window(height=100, border=True, tag="stats_panel", show=self._stats_visible, no_scrollbar=True):
+            with dpg.child_window(height=72, border=True, tag="stats_panel", show=self._stats_visible, no_scrollbar=True):
                 dpg.add_spacer(height=6)
                 with dpg.group(horizontal=True):
                     dpg.add_spacer(width=12)
@@ -412,7 +421,7 @@ class UartiumApp:
                         dpg.add_spacer(width=8)
                         dpg.add_text("MESSAGE LOG", color=(139, 233, 253, 255))
                     dpg.add_spacer(height=4)
-                    self._log_parent = dpg.add_child_window(height=420, border=True, tag="log_window")
+                    self._log_parent = dpg.add_child_window(height=360, border=True, tag="log_window")
                     
                     # Apply compact spacing to log window
                     with dpg.theme() as log_compact_theme:
@@ -427,7 +436,7 @@ class UartiumApp:
                         dpg.add_spacer(width=8)
                         dpg.add_text("DATA MONITOR", color=(139, 233, 253, 255))
                     dpg.add_spacer(height=4)
-                    with dpg.child_window(height=220, border=True, tag="data_monitor_window"):
+                    with dpg.child_window(height=160, border=True, tag="data_monitor_window"):
                         with dpg.table(tag="data_table", header_row=True,
                                        borders_innerH=True, borders_innerV=True,
                                        borders_outerH=True, borders_outerV=True,
@@ -555,9 +564,18 @@ class UartiumApp:
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
         dpg.bind_item_theme("btn_export_csv", utility_theme)
         dpg.bind_item_theme("btn_toggle_stats", utility_theme)
-        
+        dpg.bind_item_theme("btn_settings", utility_theme)
+
+        # Compact theme for the status row to reduce vertical footprint
+        with dpg.theme() as _status_theme:
+            with dpg.theme_component(dpg.mvAll):
+                dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 6, 2)
+                dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 4, 2)
+        dpg.bind_item_theme("status_row", _status_theme)
+
         logger.info("UI build completed successfully")
 
+        # (Removed floating overlay) Help button lives in the main toolbar for consistent layout
     # -- run loop -----------------------------------------------------------
     def run(self) -> None:
         """Initialize and run the main application event loop."""
@@ -568,6 +586,27 @@ class UartiumApp:
             dpg.show_viewport()
             dpg.maximize_viewport()  # Start maximized for best experience
             logger.info("Uartium application started successfully")
+            # Position floating settings overlay in top-right and bring to front
+            try:
+                if dpg.does_item_exist("floating_settings_win"):
+                    try:
+                        vw = dpg.get_viewport_width()
+                        vh = dpg.get_viewport_height()
+                    except Exception:
+                        vw = 1280
+                        vh = 900
+                    margin = 8
+                    # try to measure the button width, fallback to a conservative value
+                    try:
+                        btn_w = dpg.get_item_width("btn_settings_overlay") or 44
+                    except Exception:
+                        btn_w = 44
+                    x = max(margin, vw - btn_w - margin)
+                    y = margin
+                    dpg.set_item_pos("floating_settings_win", [int(x), int(y)])
+                    dpg.bring_item_to_front("floating_settings_win")
+            except Exception:
+                pass
         except Exception as e:
             logger.error(f"Failed to initialize UI: {e}")
             raise
@@ -797,7 +836,7 @@ class UartiumApp:
                 if children:
                     dpg.delete_item(children[0])
 
-            # Add message and variables in a compact group
+            # Add message and variables in a compact group (message first, then variables)
             with dpg.group(parent=self._log_parent, horizontal=False):
                 # Main message line
                 dpg.add_text(line, color=color)
@@ -808,7 +847,6 @@ class UartiumApp:
                         val_str = str(info.get("value", "N/A"))
                         var_line = f"    {var_name} = {val_str}"
                         dpg.add_text(var_line, color=color)
-            
             # Apply compact spacing theme to the entire message group
             with dpg.theme() as compact_theme:
                 with dpg.theme_component(dpg.mvAll):
