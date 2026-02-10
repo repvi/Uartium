@@ -30,6 +30,22 @@ from uartium.ui_settings import build_settings_window
 from uartium.ui_stats import build_stats_panel
 from uartium.ui_timeline import build_timeline_panel, build_timeline_tooltip
 from uartium.ui_toolbar import build_toolbar
+from uartium.ui_tags import (
+    TAG_BTN_EXPORT_CSV,
+    TAG_BTN_SETTINGS,
+    TAG_BTN_SETTINGS_OVERLAY,
+    TAG_BTN_START,
+    TAG_BTN_STOP,
+    TAG_BTN_TOGGLE_STATS,
+    TAG_DATA_TABLE,
+    TAG_LOG_WINDOW,
+    TAG_MODE_RADIO,
+    TAG_PORT_INPUT,
+    TAG_STATS_PANEL,
+    TAG_STATUS_ROW,
+    TAG_TIMELINE_PLOT,
+    TAG_TIMELINE_Y_AXIS,
+)
 
 # ---------------------------------------------------------------------------
 # Logging Configuration
@@ -345,7 +361,7 @@ class UartiumApp:
                 dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (34, 139, 34, 255))   # Forest green
                 dpg.add_theme_color(dpg.mvThemeCol_Text, (255, 255, 255, 255))         # White text
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
-        dpg.bind_item_theme("btn_start", start_theme)
+        dpg.bind_item_theme(TAG_BTN_START, start_theme)
 
         with dpg.theme() as stop_theme:
             with dpg.theme_component(dpg.mvButton):
@@ -354,7 +370,7 @@ class UartiumApp:
                 dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (176, 42, 55, 255))   # Deep red
                 dpg.add_theme_color(dpg.mvThemeCol_Text, (255, 255, 255, 255))         # White text
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
-        dpg.bind_item_theme("btn_stop", stop_theme)
+        dpg.bind_item_theme(TAG_BTN_STOP, stop_theme)
         
         # Export and utility button theme
         with dpg.theme() as utility_theme:
@@ -363,16 +379,16 @@ class UartiumApp:
                 dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (98, 114, 164, 255)) # Bright periwinkle
                 dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (80, 250, 123, 255))  # Active green
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
-        dpg.bind_item_theme("btn_export_csv", utility_theme)
-        dpg.bind_item_theme("btn_toggle_stats", utility_theme)
-        dpg.bind_item_theme("btn_settings", utility_theme)
+        dpg.bind_item_theme(TAG_BTN_EXPORT_CSV, utility_theme)
+        dpg.bind_item_theme(TAG_BTN_TOGGLE_STATS, utility_theme)
+        dpg.bind_item_theme(TAG_BTN_SETTINGS, utility_theme)
 
         # Compact theme for the status row to reduce vertical footprint
         with dpg.theme() as _status_theme:
             with dpg.theme_component(dpg.mvAll):
                 dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 6, 2)
                 dpg.add_theme_style(dpg.mvStyleVar_FramePadding, 4, 2)
-        dpg.bind_item_theme("status_row", _status_theme)
+        dpg.bind_item_theme(TAG_STATUS_ROW, _status_theme)
 
         logger.info("UI build completed successfully")
 
@@ -399,7 +415,7 @@ class UartiumApp:
                     margin = 8
                     # try to measure the button width, fallback to a conservative value
                     try:
-                        btn_w = dpg.get_item_width("btn_settings_overlay") or 44
+                        btn_w = dpg.get_item_width(TAG_BTN_SETTINGS_OVERLAY) or 44
                     except Exception:
                         btn_w = 44
                     x = max(margin, vw - btn_w - margin)
@@ -473,7 +489,7 @@ class UartiumApp:
             
             # For real serial, validate and update port
             if self._is_serial_backend:
-                port = dpg.get_value("port_input").strip()
+                port = dpg.get_value(TAG_PORT_INPUT).strip()
                 if not port:
                     self._set_error("[ERROR] Port name cannot be empty")
                     return
@@ -491,8 +507,8 @@ class UartiumApp:
             self._reconnect_attempts = 0
             self._error_count = 0
             
-            dpg.configure_item("btn_start", enabled=False)
-            dpg.configure_item("btn_stop", enabled=True)
+            dpg.configure_item(TAG_BTN_START, enabled=False)
+            dpg.configure_item(TAG_BTN_STOP, enabled=True)
             dpg.set_value(self._status_text, status_msg)
             dpg.configure_item(self._status_text, color=(80, 250, 123, 255))
             logger.info(f"Serial monitoring started: {status_msg}")
@@ -505,8 +521,8 @@ class UartiumApp:
         """Stop serial monitoring with graceful shutdown."""
         try:
             self.backend.stop()
-            dpg.configure_item("btn_start", enabled=True)
-            dpg.configure_item("btn_stop", enabled=False)
+            dpg.configure_item(TAG_BTN_START, enabled=True)
+            dpg.configure_item(TAG_BTN_STOP, enabled=False)
             dpg.set_value(self._status_text, "Stopped")
             dpg.configure_item(self._status_text, color=(180, 180, 180, 255))
             self._is_running = False
@@ -528,10 +544,10 @@ class UartiumApp:
             logger.info("Switched to Demo mode")
             self._set_error("[INFO] Switched to Demo mode")
         else:  # Real Serial
-            port = dpg.get_value("port_input").strip()
+            port = dpg.get_value(TAG_PORT_INPUT).strip()
             if not port:
                 self._set_error("[ERROR] Port name cannot be empty for Real Serial mode")
-                dpg.set_value("mode_radio", "Demo")
+                dpg.set_value(TAG_MODE_RADIO, "Demo")
                 return
             self.backend = SerialBackend(port=port, baudrate=self._selected_baudrate)
             self._use_demo = False
@@ -679,14 +695,14 @@ class UartiumApp:
 
     def _update_timeline_hover(self) -> None:
         """Show a tooltip when hovering near a timeline point."""
-        if not dpg.does_item_exist("timeline_plot"):
+        if not dpg.does_item_exist(TAG_TIMELINE_PLOT):
             return
 
         # Check if mouse is outside the plot area
         try:
             mx_screen, my_screen = dpg.get_mouse_pos()
-            rect_min = dpg.get_item_rect_min("timeline_plot")
-            rect_max = dpg.get_item_rect_max("timeline_plot")
+            rect_min = dpg.get_item_rect_min(TAG_TIMELINE_PLOT)
+            rect_max = dpg.get_item_rect_max(TAG_TIMELINE_PLOT)
             
             if not (rect_min[0] <= mx_screen <= rect_max[0] and rect_min[1] <= my_screen <= rect_max[1]):
                 # Mouse left the plot - hide tooltip
@@ -716,7 +732,7 @@ class UartiumApp:
 
         # Try both plot mouse APIs for compatibility
         try:
-            mouse_x, mouse_y = dpg.get_plot_mouse_pos("timeline_plot")
+            mouse_x, mouse_y = dpg.get_plot_mouse_pos(TAG_TIMELINE_PLOT)
         except Exception:
             try:
                 mouse_x, mouse_y = dpg.get_plot_mouse_pos()
@@ -728,7 +744,7 @@ class UartiumApp:
             rect_width = max(1.0, rect_max[0] - rect_min[0])
             rect_height = max(1.0, rect_max[1] - rect_min[1])
             x_min, x_max = dpg.get_axis_limits(self._x_axis_tag)
-            y_min, y_max = dpg.get_axis_limits("timeline_y_axis")
+            y_min, y_max = dpg.get_axis_limits(TAG_TIMELINE_Y_AXIS)
             x_range = max(0.001, x_max - x_min)
             y_range = max(0.001, y_max - y_min)
             # Smaller radius to acquire hover, larger radius to keep it (prevents flicker)
@@ -806,8 +822,8 @@ class UartiumApp:
                 self._last_hovered_msg_id = msg_id
                 # Always position tooltip at the top-right inside the plot and show it
                 try:
-                    rect_min = dpg.get_item_rect_min("timeline_plot")
-                    rect_max = dpg.get_item_rect_max("timeline_plot")
+                    rect_min = dpg.get_item_rect_min(TAG_TIMELINE_PLOT)
+                    rect_max = dpg.get_item_rect_max(TAG_TIMELINE_PLOT)
                     tooltip_w = 120
                     padding = 12
                     tooltip_x = rect_max[0] - tooltip_w - padding
@@ -851,7 +867,7 @@ class UartiumApp:
                 dpg.set_value(value_cell, val_str)
             else:
                 # add a new row to the table
-                with dpg.table_row(parent="data_table"):
+                with dpg.table_row(parent=TAG_DATA_TABLE):
                     name_cell = dpg.add_text(var_name, color=color)
                     type_cell = dpg.add_text(type_str, color=color)
                     value_cell = dpg.add_text(val_str, color=color)
@@ -909,8 +925,8 @@ class UartiumApp:
     def _toggle_statistics(self) -> None:
         """Toggle statistics panel visibility."""
         self._stats_visible = not self._stats_visible
-        if dpg.does_item_exist("stats_panel"):
-            dpg.configure_item("stats_panel", show=self._stats_visible)
+        if dpg.does_item_exist(TAG_STATS_PANEL):
+            dpg.configure_item(TAG_STATS_PANEL, show=self._stats_visible)
         self._save_settings()
         logger.info(f"Statistics panel toggled: {self._stats_visible}")
     

@@ -2,6 +2,15 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium.ui_tags import (
+    TAG_FILTER_DEBUG,
+    TAG_FILTER_ERROR,
+    TAG_FILTER_INFO,
+    TAG_FILTER_WARNING,
+    TAG_TIMELINE_PLOT,
+    TAG_TIMELINE_Y_AXIS,
+)
+
 
 def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
     """Build the right column timeline panel and plot."""
@@ -22,7 +31,7 @@ def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
                 default_value=app._level_filters["INFO"],
                 callback=app._on_filter_changed,
                 user_data="INFO",
-                tag="filter_INFO",
+                tag=TAG_FILTER_INFO,
             )
             dpg.add_spacer(width=1)
             dpg.add_checkbox(
@@ -30,7 +39,7 @@ def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
                 default_value=app._level_filters["WARNING"],
                 callback=app._on_filter_changed,
                 user_data="WARNING",
-                tag="filter_WARNING",
+                tag=TAG_FILTER_WARNING,
             )
             dpg.add_spacer(width=1)
             dpg.add_checkbox(
@@ -38,7 +47,7 @@ def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
                 default_value=app._level_filters["ERROR"],
                 callback=app._on_filter_changed,
                 user_data="ERROR",
-                tag="filter_ERROR",
+                tag=TAG_FILTER_ERROR,
             )
             dpg.add_spacer(width=1)
             dpg.add_checkbox(
@@ -46,14 +55,14 @@ def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
                 default_value=app._level_filters["DEBUG"],
                 callback=app._on_filter_changed,
                 user_data="DEBUG",
-                tag="filter_DEBUG",
+                tag=TAG_FILTER_DEBUG,
             )
 
         dpg.add_spacer(height=6)
-        with dpg.plot(label="##timeline", height=-20, width=-20, tag="timeline_plot"):
+        with dpg.plot(label="##timeline", height=-20, width=-20, tag=TAG_TIMELINE_PLOT):
             app._x_axis_tag = dpg.add_plot_axis(dpg.mvXAxis, label="Time (s)")
-            with dpg.plot_axis(dpg.mvYAxis, label="Level", tag="timeline_y_axis"):
-                dpg.set_axis_limits("timeline_y_axis", 0.0, 5.0)
+            with dpg.plot_axis(dpg.mvYAxis, label="Level", tag=TAG_TIMELINE_Y_AXIS):
+                dpg.set_axis_limits(TAG_TIMELINE_Y_AXIS, 0.0, 5.0)
                 # one scatter series per level
                 for lvl in level_y:
                     col255 = tuple(int(c * 255) for c in level_plot_colors[lvl])

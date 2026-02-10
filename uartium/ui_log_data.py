@@ -2,6 +2,8 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium.ui_tags import TAG_DATA_MONITOR_WINDOW, TAG_DATA_TABLE, TAG_LOG_WINDOW
+
 
 def build_log_and_data(app) -> None:
     """Build the left column with the log window and data monitor."""
@@ -12,13 +14,13 @@ def build_log_and_data(app) -> None:
             dpg.add_spacer(width=8)
             dpg.add_text("MESSAGE LOG", color=(139, 233, 253, 255))
         dpg.add_spacer(height=4)
-        app._log_parent = dpg.add_child_window(height=360, border=True, tag="log_window")
+        app._log_parent = dpg.add_child_window(height=360, border=True, tag=TAG_LOG_WINDOW)
 
         # Apply compact spacing to log window
         with dpg.theme() as log_compact_theme:
             with dpg.theme_component(dpg.mvAll):
                 dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 0, 3)
-        dpg.bind_item_theme("log_window", log_compact_theme)
+        dpg.bind_item_theme(TAG_LOG_WINDOW, log_compact_theme)
 
         dpg.add_spacer(height=8)
 
@@ -27,9 +29,9 @@ def build_log_and_data(app) -> None:
             dpg.add_spacer(width=8)
             dpg.add_text("DATA MONITOR", color=(139, 233, 253, 255))
         dpg.add_spacer(height=4)
-        with dpg.child_window(height=160, border=True, tag="data_monitor_window"):
+        with dpg.child_window(height=160, border=True, tag=TAG_DATA_MONITOR_WINDOW):
             with dpg.table(
-                tag="data_table",
+                tag=TAG_DATA_TABLE,
                 header_row=True,
                 borders_innerH=True,
                 borders_innerV=True,

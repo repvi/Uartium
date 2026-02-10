@@ -2,13 +2,15 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium.ui_tags import TAG_STATS_PANEL
+
 
 def build_stats_panel(app, level_colors: dict) -> None:
     """Build the statistics panel."""
     with dpg.child_window(
         height=72,
         border=True,
-        tag="stats_panel",
+        tag=TAG_STATS_PANEL,
         show=app._stats_visible,
         no_scrollbar=True,
     ):

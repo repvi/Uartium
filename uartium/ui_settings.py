@@ -2,12 +2,14 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium.ui_tags import TAG_SETTINGS_WINDOW, TAG_THEME_SELECTOR
+
 
 def build_settings_window(app) -> None:
     """Build the modal settings window."""
     with dpg.window(
         label="[SETTINGS] Application Configuration",
-        tag="settings_window",
+        tag=TAG_SETTINGS_WINDOW,
         show=False,
         width=480,
         height=400,
@@ -29,7 +31,7 @@ def build_settings_window(app) -> None:
                     else "[LIGHT] Clean Light Theme"
                 ),
                 callback=app._on_theme_changed,
-                tag="theme_selector",
+                tag=TAG_THEME_SELECTOR,
             )
             dpg.add_spacer(height=6)
 
@@ -53,7 +55,7 @@ def build_settings_window(app) -> None:
             dpg.add_spacer(width=10)
             dpg.add_button(
                 label="[EXIT] Close",
-                callback=lambda: dpg.hide_item("settings_window"),
+                callback=lambda: dpg.hide_item(TAG_SETTINGS_WINDOW),
                 width=130,
                 height=35,
             )
