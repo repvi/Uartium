@@ -933,3 +933,11 @@
 2026-02-09 21:18:42,309 - uartium.gui - INFO - Uartium application started successfully
 2026-02-09 21:18:43,855 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
 2026-02-09 21:18:48,825 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 21:20:24,919 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 21:20:24,920 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 21:20:24,924 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 21:20:25,122 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 21:20:25,799 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 21:20:27,166 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 21:20:31,927 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 21:20:35,614 - uartium.gui - INFO - Serial monitoring stopped

@@ -913,30 +913,12 @@ class UartiumApp:
         except Exception:
             return
 
-        # Prefer item hover and map screen mouse coordinates into plot axis coordinates
+        # Try both plot mouse APIs for compatibility
         try:
-            if not dpg.is_item_hovered("timeline_plot"):
-                # Mouse not over plot - hide tooltip
-                if dpg.does_item_exist(self._timeline_tooltip_window):
-                    dpg.configure_item(self._timeline_tooltip_window, show=False)
-                self._last_hovered_msg_id = None
-                self._timeline_tooltip_pos = None
-                self._pinned_msg = None
-                return
-
-            mx_screen, my_screen = dpg.get_mouse_pos()
-            # map screen coords to normalized plot coords
-            px = (mx_screen - rect_min[0]) / max(1.0, (rect_max[0] - rect_min[0]))
-            py = (my_screen - rect_min[1]) / max(1.0, (rect_max[1] - rect_min[1]))
-            x_min_axis, x_max_axis = dpg.get_axis_limits(self._x_axis_tag)
-            y_min_axis, y_max_axis = dpg.get_axis_limits("timeline_y_axis")
-            mouse_x = x_min_axis + px * (x_max_axis - x_min_axis)
-            # invert y because screen y increases downwards
-            mouse_y = y_max_axis - py * (y_max_axis - y_min_axis)
+            mouse_x, mouse_y = dpg.get_plot_mouse_pos("timeline_plot")
         except Exception:
-            # final fallback: try the plot API
             try:
-                mouse_x, mouse_y = dpg.get_plot_mouse_pos("timeline_plot")
+                mouse_x, mouse_y = dpg.get_plot_mouse_pos()
             except Exception:
                 return
 
@@ -1021,26 +1003,27 @@ class UartiumApp:
                 dpg.set_value(self._timeline_tooltip_header, header)
                 dpg.set_value(self._timeline_tooltip_body, line)
                 self._last_hovered_msg_id = msg_id
-                # Position tooltip near current cursor and show immediately
+                # Always position tooltip at the top-right inside the plot and show it
                 try:
-                    mx, my = dpg.get_mouse_pos()
-                    # small offset so the tooltip doesn't overlap the cursor
-                    pos = (int(mx) + 12, int(my) + 12)
+                    rect_min = dpg.get_item_rect_min("timeline_plot")
+                    rect_max = dpg.get_item_rect_max("timeline_plot")
+                    tooltip_w = 120
+                    padding = 12
+                    tooltip_x = rect_max[0] - tooltip_w - padding
+                    tooltip_y = rect_min[1] + padding
+                    self._timeline_tooltip_pos = (int(tooltip_x), int(tooltip_y))
                     if dpg.does_item_exist(self._timeline_tooltip_window):
-                        dpg.set_item_pos(self._timeline_tooltip_window, list(pos))
+                        dpg.set_item_pos(self._timeline_tooltip_window, list(self._timeline_tooltip_pos))
                         dpg.configure_item(self._timeline_tooltip_window, show=True)
                 except Exception:
-                    # fallback: keep previous behavior
-                    try:
-                        rect_min = dpg.get_item_rect_min("timeline_plot")
-                        rect_max = dpg.get_item_rect_max("timeline_plot")
-                        tooltip_w = 120
-                        padding = 12
-                        tooltip_x = rect_max[0] - tooltip_w - padding
-                        tooltip_y = rect_min[1] + padding
-                        self._timeline_tooltip_pos = (int(tooltip_x), int(tooltip_y))
-                    except Exception:
-                        self._timeline_tooltip_pos = (800, 200)
+                    # Fallback to a default position and show
+                    self._timeline_tooltip_pos = (800, 200)
+                    if dpg.does_item_exist(self._timeline_tooltip_window):
+                        try:
+                            dpg.set_item_pos(self._timeline_tooltip_window, list(self._timeline_tooltip_pos))
+                            dpg.configure_item(self._timeline_tooltip_window, show=True)
+                        except Exception:
+                            pass
 
         # Place tooltip at stored position (anchored to the dot)
         if dpg.does_item_exist(self._timeline_tooltip_window):
