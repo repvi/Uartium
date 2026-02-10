@@ -464,3 +464,190 @@
 2026-02-08 21:56:27,127 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
 2026-02-08 21:56:29,188 - uartium.gui - INFO - Serial monitoring stopped
 2026-02-08 21:57:14,503 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-09 18:56:43,105 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 18:56:43,106 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 18:56:43,112 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 18:56:43,373 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 18:56:44,346 - uartium.gui - INFO - Serial monitoring started on COM3 @ 115200 baud
+2026-02-09 18:56:47,903 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 18:59:00,711 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 18:59:00,711 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 18:59:00,718 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 18:59:00,981 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 18:59:01,822 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 18:59:03,501 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 18:59:19,685 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 18:59:19,686 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 18:59:21,318 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 18:59:21,319 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 18:59:23,935 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:23,936 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:27,299 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:27,300 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:29,481 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 18:59:29,482 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 18:59:30,263 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 18:59:34,806 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 18:59:34,807 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 18:59:34,812 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 18:59:35,113 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 18:59:37,811 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 18:59:37,812 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 18:59:38,293 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 18:59:38,294 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 18:59:39,393 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:39,394 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:43,592 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:43,593 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:43,974 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:43,974 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,108 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,109 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,242 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,243 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,392 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,393 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,524 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,525 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,656 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,657 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,774 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,775 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,923 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:44,924 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 18:59:50,256 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 18:59:50,258 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:00:02,285 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:03:23,182 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:05:03,019 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:05:03,020 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:05:03,025 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:05:03,247 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:05:05,147 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:05:05,148 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:05:05,827 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:05:05,828 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:05:18,356 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 115200 baud
+2026-02-09 19:05:35,833 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:06:23,566 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:06:23,567 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:06:23,571 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:06:23,819 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:06:26,400 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 19:06:34,684 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:06:35,145 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:06:35,145 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:06:35,679 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:06:35,680 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:06:36,745 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 19:06:36,746 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM3': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2)
+2026-02-09 19:06:43,076 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:06:43,077 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:06:46,923 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:06:46,924 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:06:57,062 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:12:37,112 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:15:56,711 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:15:56,712 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:15:56,716 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:15:56,976 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:15:58,706 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:15:58,707 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:15:59,139 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:15:59,140 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:16:05,820 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:16:05,821 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:16:14,498 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:19:42,684 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:19:42,684 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:19:42,690 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:19:42,949 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:19:45,565 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:19:45,565 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:19:46,047 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:19:46,047 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:19:53,966 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:21:25,309 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:21:25,309 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:21:25,313 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:21:25,555 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:21:26,638 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 19:21:28,013 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:21:37,675 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 19:21:41,204 - uartium.gui - WARNING - [ERROR] Stop monitoring before changing mode
+2026-02-09 19:21:41,701 - uartium.gui - WARNING - [ERROR] Stop monitoring before changing mode
+2026-02-09 19:21:43,260 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:21:43,650 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-09 19:21:49,224 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:21:50,569 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:21:50,569 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:21:51,150 - uartium.gui - INFO - Switched to Real Serial mode: COM5 @ 9600
+2026-02-09 19:21:51,151 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM5 @ 9600
+2026-02-09 19:21:53,900 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:22:15,416 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:26:25,947 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:26:25,947 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:26:25,953 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:26:26,180 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:26:31,822 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:26:31,823 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:26:32,221 - uartium.gui - INFO - Switched to Real Serial mode: COM5 @ 9600
+2026-02-09 19:26:32,222 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM5 @ 9600
+2026-02-09 19:26:33,002 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:26:40,868 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:28:39,338 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:28:39,339 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:28:42,818 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:28:42,818 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:28:52,602 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:29:18,894 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:34:09,165 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:34:09,167 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:34:09,173 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:34:09,415 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:34:53,960 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:34:53,960 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:34:53,964 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:34:54,177 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:34:55,872 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:34:55,872 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:34:56,288 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:34:56,289 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:35:08,787 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:35:08,787 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:35:08,792 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:35:09,021 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:35:11,566 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:35:11,567 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:35:12,049 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:35:12,050 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:35:16,181 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:35:20,802 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-09 19:36:33,162 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:36:33,162 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:36:33,167 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:36:33,386 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:36:34,699 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:36:34,700 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:36:35,450 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:36:35,451 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:36:39,649 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:39,650 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:42,696 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:42,697 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,261 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,262 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,397 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,398 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,532 - uartium.gui - ERROR - Failed to start monitoring: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:43,532 - uartium.gui - WARNING - [ERROR] Start failed: could not open port 'COM5': PermissionError(13, 'Access is denied.', None, 5)
+2026-02-09 19:36:48,527 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud
+2026-02-09 19:46:34,580 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-09 19:46:34,581 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-09 19:46:34,586 - uartium.gui - INFO - UI build completed successfully
+2026-02-09 19:46:34,841 - uartium.gui - INFO - Uartium application started successfully
+2026-02-09 19:46:36,818 - uartium.gui - INFO - Switched to Demo mode
+2026-02-09 19:46:36,819 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-09 19:46:37,352 - uartium.gui - INFO - Switched to Real Serial mode: COM3 @ 115200
+2026-02-09 19:46:37,353 - uartium.gui - WARNING - [INFO] Switched to Real Serial: COM3 @ 115200
+2026-02-09 19:46:41,103 - uartium.gui - INFO - Serial monitoring started: Active - COM5 @ 9600 baud

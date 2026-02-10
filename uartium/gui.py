@@ -137,10 +137,11 @@ class UartiumApp:
     BUFFER_RETENTION_DAYS = 7
 
     def __init__(self, backend=None, initial_baudrate: int = 115200):
-        self.backend = backend or DemoSerialBackend(interval=0.5)
+        self.backend = backend
         self._initial_baudrate = initial_baudrate
         self._selected_baudrate = initial_baudrate
         self._is_serial_backend = isinstance(backend, SerialBackend)
+        self._use_demo = backend is None
         self._start_time: Optional[float] = None
         
         # Enterprise features
@@ -352,6 +353,17 @@ class UartiumApp:
                             width=100,
                             tag="baud_combo",
                             callback=self._on_baud_changed
+                        )
+                    
+                    # Mode selector
+                    with dpg.group(horizontal=True):
+                        dpg.add_text("Mode:", color=(200, 200, 210, 255))
+                        dpg.add_radio_button(
+                            ["Demo", "Real Serial"],
+                            default_value="Demo" if self._use_demo else "Real Serial",
+                            horizontal=True,
+                            callback=self._on_mode_changed,
+                            tag="mode_radio"
                         )
                                         
                     # Utility buttons
@@ -608,15 +620,23 @@ class UartiumApp:
     def _on_start(self) -> None:
         """Start serial monitoring with error handling and recovery."""
         try:
-            # Validate port name
-            port = dpg.get_value("port_input").strip()
-            if not port:
-                self._set_error("[ERROR] Port name cannot be empty")
+            # Ensure backend exists
+            if self.backend is None:
+                self._set_error("[ERROR] No backend configured")
                 return
             
-            # Update baud rate on SerialBackend before starting
+            # For real serial, validate and update port
             if self._is_serial_backend:
+                port = dpg.get_value("port_input").strip()
+                if not port:
+                    self._set_error("[ERROR] Port name cannot be empty")
+                    return
+                self.backend.port = port
                 self.backend.baudrate = self._selected_baudrate
+                status_msg = f"Active - {port} @ {self._selected_baudrate} baud"
+            else:
+                # Demo mode
+                status_msg = "Active - Demo Mode"
             
             self.backend.start()
             self._start_time = time.time()
@@ -627,9 +647,9 @@ class UartiumApp:
             
             dpg.configure_item("btn_start", enabled=False)
             dpg.configure_item("btn_stop", enabled=True)
-            dpg.set_value(self._status_text, f"Active - {port} @ {self._selected_baudrate} baud")
+            dpg.set_value(self._status_text, status_msg)
             dpg.configure_item(self._status_text, color=(80, 250, 123, 255))
-            logger.info(f"Serial monitoring started on {port} @ {self._selected_baudrate} baud")
+            logger.info(f"Serial monitoring started: {status_msg}")
         except Exception as e:
             logger.error(f"Failed to start monitoring: {e}")
             self._set_error(f"[ERROR] Start failed: {e}")
@@ -648,6 +668,30 @@ class UartiumApp:
         except Exception as e:
             logger.error(f"Error stopping monitoring: {e}")
             self._set_error(f"[ERROR] Stop failed: {e}")
+
+    def _on_mode_changed(self, sender, value) -> None:
+        """Switch between demo and real serial mode."""
+        if self._is_running:
+            self._set_error("[ERROR] Stop monitoring before changing mode")
+            return
+        
+        if value == "Demo":
+            self.backend = DemoSerialBackend(interval=0.5)
+            self._use_demo = True
+            self._is_serial_backend = False
+            logger.info("Switched to Demo mode")
+            self._set_error("[INFO] Switched to Demo mode")
+        else:  # Real Serial
+            port = dpg.get_value("port_input").strip()
+            if not port:
+                self._set_error("[ERROR] Port name cannot be empty for Real Serial mode")
+                dpg.set_value("mode_radio", "Demo")
+                return
+            self.backend = SerialBackend(port=port, baudrate=self._selected_baudrate)
+            self._use_demo = False
+            self._is_serial_backend = True
+            logger.info(f"Switched to Real Serial mode: {port} @ {self._selected_baudrate}")
+            self._set_error(f"[INFO] Switched to Real Serial: {port} @ {self._selected_baudrate}")
 
     # -- message pump -------------------------------------------------------
     def _poll_messages(self) -> None:
@@ -728,8 +772,16 @@ class UartiumApp:
             color = LEVEL_COLORS.get(level, (200, 200, 200, 255))
             badge = LEVEL_BADGE.get(level, "[???]    ")
             ts = time.strftime("%H:%M:%S", time.localtime(msg.get("timestamp", time.time())))
-            text = msg.get('text', '<no message>')
-            line = f"{ts}  {badge} {text}"
+            text = msg.get('text', '')
+            
+            # Debug logging
+            logger.debug(f"_add_log_line - text: {repr(text)}, has_data: {'data_fields' in msg}")
+            
+            # Build the log line - only include text if it's not empty
+            if text:
+                line = f"{ts}  {badge} {text}"
+            else:
+                line = f"{ts}  {badge}"
 
             self._msg_count += 1
 

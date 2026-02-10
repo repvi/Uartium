@@ -149,6 +149,11 @@ class SerialBackend:
             if "=" not in token:
                 continue
             name_part, _, raw_value = token.partition("=")
+            
+            # Skip special fields that are handled elsewhere (:t and :m)
+            if name_part.startswith(":"):
+                continue
+            
             # separate optional type suffix  (e.g. "varName:u")
             if ":" in name_part:
                 var_name, _, type_char = name_part.rpartition(":")
@@ -157,6 +162,10 @@ class SerialBackend:
                 var_name = name_part
                 type_char = None
                 type_label = "str"
+            
+            # Skip if variable name is empty
+            if not var_name:
+                continue
 
             # attempt conversion
             converted = raw_value
@@ -179,15 +188,18 @@ class SerialBackend:
     @staticmethod
     def _extract_message_field(text: str):
         """
-        Extract :m\"...\" message field from text.
+        Extract :m\"...\" or :m=\"...\" message field from text.
         Returns (message_text, remaining_text) if found,
         or (None, original_text) otherwise.
+        Supports escaped quotes inside message using backslash (e.g., :m"He said \"Hello\"")
         """
         import re
-        # Match :m"..." (greedy to capture everything in quotes)
-        match = re.search(r':m"([^"]*)"', text)
+        # Match :m"..." or :m="..." with support for escaped quotes (\")
+        match = re.search(r':m=?"((?:[^"\\]|\\.)*)"', text)
         if match:
             message = match.group(1)
+            # Unescape any escaped quotes in the message
+            message = message.replace(r'\"', '"').replace(r'\\', '\\')
             remaining = text[:match.start()] + text[match.end():]
             return message, remaining.strip()
         return None, text
@@ -243,17 +255,30 @@ class SerialBackend:
         # extract optional device timestamp  (:t=<value>)
         device_ts, text = SerialBackend._extract_timestamp_field(text)
 
+        # Parse any remaining variables from text
+        data_fields = SerialBackend._parse_data_fields(text)
+        
+        # Determine what to show as the message text:
+        # - If :m is present, use it
+        # - Otherwise, only show remaining text if it's not just variable tokens
+        if message_text:
+            display_text = message_text
+        elif data_fields:
+            # Has variables but no :m field - don't show variable tokens as message
+            display_text = ""
+        else:
+            # No :m and no variables - show whatever remains
+            display_text = text
+
         msg = {
             "timestamp": time.time(),
             "level": level,
-            "text": message_text if message_text else text,
+            "text": display_text,
         }
 
         if device_ts is not None:
             msg["device_timestamp"] = device_ts
 
-        # Parse any remaining variables from text
-        data_fields = SerialBackend._parse_data_fields(text)
         if data_fields:
             msg["data_fields"] = data_fields
 
