@@ -414,6 +414,12 @@ class UartiumApp:
                     dpg.add_spacer(height=4)
                     self._log_parent = dpg.add_child_window(height=420, border=True, tag="log_window")
                     
+                    # Apply compact spacing to log window
+                    with dpg.theme() as log_compact_theme:
+                        with dpg.theme_component(dpg.mvAll):
+                            dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 0, 3)
+                    dpg.bind_item_theme("log_window", log_compact_theme)
+                    
                     dpg.add_spacer(height=8)
                     
                     # Data Monitor
@@ -791,17 +797,23 @@ class UartiumApp:
                 if children:
                     dpg.delete_item(children[0])
 
-            # Add main message line
-            dpg.add_text(line, parent=self._log_parent, color=color)
+            # Add message and variables in a compact group
+            with dpg.group(parent=self._log_parent, horizontal=False):
+                # Main message line
+                dpg.add_text(line, color=color)
 
-            # Add variables below if present - colored by message level
-            if "data_fields" in msg and msg["data_fields"]:
-                indent = "    "
-                for var_name, info in msg["data_fields"].items():
-                    val_str = str(info.get("value", "N/A"))
-                    type_str = info.get("type", "str")
-                    var_line = f"{indent}{var_name}:{type_str} = {val_str}"
-                    dpg.add_text(var_line, parent=self._log_parent, color=color)
+                # Variables below if present
+                if "data_fields" in msg and msg["data_fields"]:
+                    for var_name, info in msg["data_fields"].items():
+                        val_str = str(info.get("value", "N/A"))
+                        var_line = f"    {var_name} = {val_str}"
+                        dpg.add_text(var_line, color=color)
+            
+            # Apply compact spacing theme to the entire message group
+            with dpg.theme() as compact_theme:
+                with dpg.theme_component(dpg.mvAll):
+                    dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 0, 1)
+            dpg.bind_item_theme(dpg.last_container(), compact_theme)
         except Exception as e:
             logger.error(f"Error adding log line: {e}")
             self._error_count += 1
