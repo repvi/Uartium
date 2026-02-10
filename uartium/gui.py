@@ -25,6 +25,11 @@ import threading
 import dearpygui.dearpygui as dpg
 
 from uartium.serial_backend import DemoSerialBackend, SerialBackend
+from uartium.ui_log_data import build_log_and_data
+from uartium.ui_settings import build_settings_window
+from uartium.ui_stats import build_stats_panel
+from uartium.ui_timeline import build_timeline_panel, build_timeline_tooltip
+from uartium.ui_toolbar import build_toolbar
 
 # ---------------------------------------------------------------------------
 # Logging Configuration
@@ -311,230 +316,26 @@ class UartiumApp:
         self._apply_theme()
 
         # ---- settings window (hidden by default) ----
-        with dpg.window(label="[SETTINGS] Application Configuration", tag="settings_window", show=False, width=480, height=400, pos=(280, 100), modal=True, no_resize=True):
-            dpg.add_spacer(height=8)
-            dpg.add_text("[APPEARANCE] Theme Selection", color=(139, 233, 253, 255))
-            dpg.add_spacer(height=12)
-            
-            with dpg.child_window(height=120, border=True):
-                dpg.add_spacer(height=6)
-                dpg.add_radio_button(
-                    ["[DARK] Modern Dark Theme", "[LIGHT] Clean Light Theme"],
-                    default_value="[DARK] Modern Dark Theme" if self._current_theme == "dark" else "[LIGHT] Clean Light Theme",
-                    callback=self._on_theme_changed,
-                    tag="theme_selector"
-                )
-                dpg.add_spacer(height=6)
-            
-            dpg.add_spacer(height=20)
-            dpg.add_text("[SYSTEM] Status", color=(139, 233, 253, 255))
-            dpg.add_spacer(height=8)
-            dpg.add_text("Status: Configured | Version: 1.0 Enterprise", color=(180, 200, 210, 255))
-            dpg.add_spacer(height=20)
-            
-            with dpg.group(horizontal=True):
-                dpg.add_spacer(width=50)
-                dpg.add_button(label="[SAVE] Save Configuration", callback=self._save_settings, width=190, height=35)
-                dpg.add_spacer(width=10)
-                dpg.add_button(label="[EXIT] Close", callback=lambda: dpg.hide_item("settings_window"), width=130, height=35)
+        build_settings_window(self)
 
         # ---- main viewport window ----
         with dpg.window(tag="primary_window"):
             # ===== CLEAN TOOLBAR - Arduino IDE Style =====
-            # Use a non-scrolling group container for the toolbar to avoid scroll behavior
-            with dpg.group(tag="toolbar_panel"):
-                dpg.add_spacer(height=8)
-                with dpg.group(horizontal=True):
-                    # Main control buttons
-                    dpg.add_button(label="START", tag="btn_start", callback=self._on_start, width=100, height=38)
-                    dpg.add_button(label="STOP", tag="btn_stop", callback=self._on_stop, enabled=False, width=100, height=38)
-                                        
-                    # Port configuration group
-                    with dpg.group(horizontal=True):
-                        dpg.add_text("Port:", color=(200, 200, 210, 255))
-                        dpg.add_input_text(default_value="COM3", width=90, tag="port_input")
-                        dpg.add_text("Baud:", color=(200, 200, 210, 255))
-                        self._baud_input = dpg.add_combo(
-                            items=["9600", "19200", "38400", "57600", "115200", "230400", "460800", "921600"],
-                            default_value=str(self._initial_baudrate),
-                            width=100,
-                            tag="baud_combo",
-                            callback=self._on_baud_changed
-                        )
-                    
-                    # Mode selector
-                    with dpg.group(horizontal=True):
-                        dpg.add_text("Mode:", color=(200, 200, 210, 255))
-                        dpg.add_radio_button(
-                            ["Demo", "Real Serial"],
-                            default_value="Demo" if self._use_demo else "Real Serial",
-                            horizontal=True,
-                            callback=self._on_mode_changed,
-                            tag="mode_radio"
-                        )
-                                        
-                    # Utility buttons
-                    dpg.add_button(label="Statistics", tag="btn_toggle_stats", callback=self._toggle_statistics, width=90, height=28)
-                    dpg.add_button(label="Export CSV", callback=self._export_to_csv, tag="btn_export_csv", width=90, height=28)
-                    dpg.add_button(label="Help", tag="btn_settings", callback=lambda: dpg.show_item("settings_window"), width=70, height=28)
-                    dpg.add_spacer(width=20)
-                # Status row below the toolbar controls (indented)
-                dpg.add_spacer(height=2)
-                with dpg.group(horizontal=True, tag="status_row"):
-                    dpg.add_spacer(width=18)
-                    self._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
-                    dpg.add_spacer(width=10)
-                    self._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
-                
-
-            #dpg.add_spacer(height=0)  # Minimal spacing between toolbar and content
+            build_toolbar(self)
 
             # ===== COLLAPSIBLE STATISTICS PANEL =====
-            with dpg.child_window(height=72, border=True, tag="stats_panel", show=self._stats_visible, no_scrollbar=True):
-                dpg.add_spacer(height=6)
-                with dpg.group(horizontal=True):
-                    dpg.add_spacer(width=12)
-                    dpg.add_text("STATISTICS", color=(139, 233, 253, 255))
-                dpg.add_spacer(height=8)
-                with dpg.group(horizontal=True):
-                    dpg.add_spacer(width=16)
-                    with dpg.group():
-                        with dpg.group(horizontal=True):
-                            self._stat_info = dpg.add_text("INFO: 0", color=LEVEL_COLORS["INFO"])
-                            dpg.add_spacer(width=20)
-                            self._stat_warn = dpg.add_text("WARN: 0", color=LEVEL_COLORS["WARNING"])
-                            dpg.add_spacer(width=20)
-                            self._stat_error = dpg.add_text("ERROR: 0", color=LEVEL_COLORS["ERROR"])
-                            dpg.add_spacer(width=20)
-                            self._stat_debug = dpg.add_text("DEBUG: 0", color=LEVEL_COLORS["DEBUG"])
-                        dpg.add_spacer(height=4)
-                        self._stat_rate = dpg.add_text("Rate: 0.0 msg/sec | Total: 0 msgs | Errors: 0", color=(189, 147, 249, 255))
+            build_stats_panel(self, LEVEL_COLORS)
 
             dpg.add_spacer(height=8)
 
             # ===== MAIN CONTENT AREA - TWO COLUMN LAYOUT =====
             with dpg.group(horizontal=True):
-                # LEFT COLUMN: Message log and data monitor
-                with dpg.child_window(width=700, border=False):
-                    # Message Log
-                    with dpg.group(horizontal=True):
-                        dpg.add_spacer(width=8)
-                        dpg.add_text("MESSAGE LOG", color=(139, 233, 253, 255))
-                    dpg.add_spacer(height=4)
-                    self._log_parent = dpg.add_child_window(height=360, border=True, tag="log_window")
-                    
-                    # Apply compact spacing to log window
-                    with dpg.theme() as log_compact_theme:
-                        with dpg.theme_component(dpg.mvAll):
-                            dpg.add_theme_style(dpg.mvStyleVar_ItemSpacing, 0, 3)
-                    dpg.bind_item_theme("log_window", log_compact_theme)
-                    
-                    dpg.add_spacer(height=8)
-                    
-                    # Data Monitor
-                    with dpg.group(horizontal=True):
-                        dpg.add_spacer(width=8)
-                        dpg.add_text("DATA MONITOR", color=(139, 233, 253, 255))
-                    dpg.add_spacer(height=4)
-                    with dpg.child_window(height=160, border=True, tag="data_monitor_window"):
-                        with dpg.table(tag="data_table", header_row=True,
-                                       borders_innerH=True, borders_innerV=True,
-                                       borders_outerH=True, borders_outerV=True,
-                                       resizable=True, policy=dpg.mvTable_SizingStretchProp):
-                            dpg.add_table_column(label="Variable", width_fixed=True, init_width_or_weight=200)
-                            dpg.add_table_column(label="Type", width_fixed=True, init_width_or_weight=80)
-                            dpg.add_table_column(label="Value")
-                
+                build_log_and_data(self)
                 dpg.add_spacer(width=8)
-                
-                # RIGHT COLUMN: Timeline chart
-                with dpg.child_window(border=True):
-                    dpg.add_spacer(height=6)
-                    # Title and filters
-                    with dpg.group(horizontal=True):
-                        dpg.add_spacer(width=8)
-                        dpg.add_text("EVENT TIMELINE", color=(139, 233, 253, 255))
-                    dpg.add_spacer(height=2)
-                    # Static filter rows (no scrolling)
-                    with dpg.group(horizontal=True):
-                        dpg.add_spacer(width=8)
-                        dpg.add_text("Show:", color=(180, 180, 190, 255))
-                        dpg.add_spacer(width=1)
-                        dpg.add_checkbox(
-                            label="INFO",
-                            default_value=self._level_filters["INFO"],
-                            callback=self._on_filter_changed,
-                            user_data="INFO",
-                            tag=f"filter_INFO"
-                        )
-                        dpg.add_spacer(width=1)
-                        dpg.add_checkbox(
-                            label="WARN",
-                            default_value=self._level_filters["WARNING"],
-                            callback=self._on_filter_changed,
-                            user_data="WARNING",
-                            tag=f"filter_WARNING"
-                        )
-                        dpg.add_spacer(width=1)
-                        dpg.add_checkbox(
-                            label="ERROR",
-                            default_value=self._level_filters["ERROR"],
-                            callback=self._on_filter_changed,
-                            user_data="ERROR",
-                            tag=f"filter_ERROR"
-                            )
-                        dpg.add_spacer(width=1)
-                        dpg.add_checkbox(
-                            label="DEBUG",
-                            default_value=self._level_filters["DEBUG"],
-                            callback=self._on_filter_changed,
-                            user_data="DEBUG",
-                            tag=f"filter_DEBUG"
-                        )
-                    
-                    dpg.add_spacer(height=6)
-                    with dpg.plot(label="##timeline", height=-20, width=-20, tag="timeline_plot"):
-                        self._x_axis_tag = dpg.add_plot_axis(dpg.mvXAxis, label="Time (s)")
-                        with dpg.plot_axis(dpg.mvYAxis, label="Level", tag="timeline_y_axis"):
-                            dpg.set_axis_limits("timeline_y_axis", 0.0, 5.0)
-                            # one scatter series per level
-                            for lvl in LEVEL_Y:
-                                col255 = tuple(int(c * 255) for c in LEVEL_PLOT_COLORS[lvl])
-                                series_tag = dpg.add_scatter_series([], [], label=lvl)
-                                self._plot_series[lvl] = series_tag
-
-                                # per-series colour theme
-                                with dpg.theme() as s_theme:
-                                    with dpg.theme_component(dpg.mvScatterSeries):
-                                        dpg.add_theme_color(dpg.mvPlotCol_MarkerFill, col255, category=dpg.mvThemeCat_Plots)
-                                        dpg.add_theme_color(dpg.mvPlotCol_MarkerOutline, col255, category=dpg.mvThemeCat_Plots)
-                                        dpg.add_theme_style(dpg.mvPlotStyleVar_MarkerSize, 5, category=dpg.mvThemeCat_Plots)
-                                dpg.bind_item_theme(series_tag, s_theme)
+                build_timeline_panel(self, LEVEL_Y, LEVEL_PLOT_COLORS)
 
             # ---- timeline hover tooltip ----
-            with dpg.window(
-                tag=self._timeline_tooltip_window,
-                show=False,
-                no_title_bar=True,
-                no_resize=True,
-                no_move=True,
-                no_background=False,
-                no_scrollbar=False,
-                no_collapse=True,
-                no_saved_settings=True,
-                no_focus_on_appearing=True,
-                autosize=False,
-                width=120,
-                height=150,
-            ):
-                dpg.add_text("", tag=self._timeline_tooltip_header, color=(139, 233, 253, 255), wrap=110)
-                dpg.add_text("", tag=self._timeline_tooltip_body, color=(220, 220, 230, 255), wrap=110)
-            # Tooltip theme: semi-transparent background and tighter padding
-            with dpg.theme() as _tooltip_theme:
-                with dpg.theme_component(dpg.mvAll):
-                    dpg.add_theme_color(dpg.mvThemeCol_WindowBg, (24, 24, 32, 128))
-                    dpg.add_theme_style(dpg.mvStyleVar_WindowPadding, 8, 6)
-            dpg.bind_item_theme(self._timeline_tooltip_window, _tooltip_theme)
+            build_timeline_tooltip(self)
 
         # ---- Enhanced button themes ----
         with dpg.theme() as start_theme:
