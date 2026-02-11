@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "triggers": [
+    {
+      "trigger_id": "396b8fbe-d1df-4f72-ae0d-bcbc56e55cad",
+      "name": "Test Trigger",
+      "enabled": true,
+      "trigger_type": "variable_threshold",
+      "variable_name": "a",
+      "comparison": ">",
+      "threshold_value": 70.0,
+      "message_pattern": null,
+      "pattern_is_regex": false,
+      "rate_threshold": null,
+      "rate_window": 60.0,
+      "actions": [
+        "visual_alert"
+      ],
+      "created_at": 1770770114.4979694,
+      "fire_count": 16,
+      "last_fired": 1770770146.0065022
+    },
+    {
+      "trigger_id": "9193c623-15dd-4ab3-bd84-7058b097f594",
+      "name": "Test Trigger 2",
+      "enabled": true,
+      "trigger_type": "variable_threshold",
+      "variable_name": "a",
+      "comparison": ">",
+      "threshold_value": 100.0,
+      "message_pattern": null,
+      "pattern_is_regex": false,
+      "rate_threshold": null,
+      "rate_window": 60.0,
+      "actions": [
+        "visual_alert"
+      ],
+      "created_at": 1770770142.6965594,
+      "fire_count": 0,
+      "last_fired": null
+    }
+  ]
+}

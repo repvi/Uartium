@@ -75,10 +75,10 @@ def build_toolbar(app) -> None:
 
             # Utility buttons
             dpg.add_button(
-                label="Statistics",
+                label="Stats",
                 tag=TAG_BTN_TOGGLE_STATS,
                 callback=app._toggle_statistics,
-                width=90,
+                width=70,
                 height=28,
             )
             dpg.add_button(

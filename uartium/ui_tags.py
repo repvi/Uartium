@@ -17,7 +17,7 @@ TAG_PORT_INPUT = "port_input"
 TAG_BAUD_COMBO = "baud_combo"
 TAG_MODE_RADIO = "mode_radio"
 
-TAG_STATS_PANEL = "stats_panel"
+TAG_STATS_WINDOW = "stats_window"
 
 TAG_LOG_WINDOW = "log_window"
 TAG_DATA_MONITOR_WINDOW = "data_monitor_window"

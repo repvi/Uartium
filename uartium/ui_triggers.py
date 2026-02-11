@@ -145,10 +145,65 @@ def _show_add_trigger_dialog(app: UartiumApp, trigger_type: TriggerType) -> None
             )
 
 
+def _on_variable_selected(selected_value: str) -> None:
+    """Handle variable selection from dropdown."""
+    if selected_value == "[Custom - Type Below]":
+        # Show the custom input field and label
+        if dpg.does_item_exist("var_name_input"):
+            dpg.configure_item("var_name_input", show=True)
+            dpg.set_value("var_name_input", "")
+        if dpg.does_item_exist("custom_var_label"):
+            dpg.configure_item("custom_var_label", show=True)
+    else:
+        # Hide the custom input field and label when a predefined variable is selected
+        if dpg.does_item_exist("var_name_input"):
+            dpg.configure_item("var_name_input", show=False)
+        if dpg.does_item_exist("custom_var_label"):
+            dpg.configure_item("custom_var_label", show=False)
+
+
 def _build_variable_threshold_inputs(app: UartiumApp) -> None:
     """Build inputs for variable threshold trigger."""
     dpg.add_text("Variable Name:")
-    dpg.add_input_text(tag="var_name_input", hint="e.g., temp, voltage, rpm", width=-1)
+
+    # Get list of existing variables
+    existing_vars = []
+    if hasattr(app, '_data_vars') and app._data_vars:
+        existing_vars = sorted(list(app._data_vars.keys()))
+
+    # If we have existing variables, show a combo box
+    if existing_vars:
+        var_items = existing_vars + ["[Custom - Type Below]"]
+        dpg.add_combo(
+            items=var_items,
+            tag="var_name_combo",
+            default_value=existing_vars[0],
+            width=-1,
+            callback=lambda s, v: _on_variable_selected(v)
+        )
+        dpg.add_spacer(height=4)
+        dpg.add_text(
+            "Or enter custom variable name:",
+            color=(150, 150, 150, 255),
+            tag="custom_var_label",
+            show=False  # Hidden by default
+        )
+        dpg.add_input_text(
+            tag="var_name_input",
+            hint="Type custom variable name here",
+            width=-1,
+            show=False  # Hidden by default when we have variables
+        )
+    else:
+        # No existing variables, just show input field
+        dpg.add_input_text(
+            tag="var_name_input",
+            hint="e.g., temp, voltage, rpm",
+            width=-1
+        )
+        # Create hidden combo and label for consistency
+        dpg.add_combo(items=[], tag="var_name_combo", show=False)
+        dpg.add_text("", tag="custom_var_label", show=False)
 
     dpg.add_spacer(height=8)
     dpg.add_text("Comparison:")
@@ -199,7 +254,25 @@ def _create_trigger_from_dialog(app: UartiumApp, trigger_type: TriggerType, dial
 
     # Create trigger based on type
     if trigger_type == TriggerType.VARIABLE_THRESHOLD:
-        var_name = dpg.get_value("var_name_input")
+        # Get variable name from combo or input field
+        combo_value = dpg.get_value("var_name_combo") if dpg.does_item_exist("var_name_combo") else None
+
+        if combo_value and combo_value != "[Custom - Type Below]":
+            # Use selected variable from dropdown
+            var_name = combo_value
+        else:
+            # Use custom input field
+            var_name = dpg.get_value("var_name_input")
+
+        # Validate variable name
+        if not var_name or var_name.strip() == "":
+            # Show error in status bar if app has it
+            if hasattr(app, '_status_text'):
+                dpg.set_value(app._status_text, "[ERROR] Variable name cannot be empty")
+                dpg.configure_item(app._status_text, color=(255, 82, 82, 255))
+            return
+
+        var_name = var_name.strip()
         comparison_str = dpg.get_value("comparison_input")
         threshold = dpg.get_value("threshold_input")
 

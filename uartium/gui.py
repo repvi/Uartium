@@ -27,7 +27,7 @@ import dearpygui.dearpygui as dpg
 from uartium.serial_backend import DemoSerialBackend, SerialBackend
 from uartium.ui_log_data import build_log_and_data
 from uartium.ui_settings import build_settings_window
-from uartium.ui_stats import build_stats_panel
+from uartium.ui_stats import build_stats_window
 from uartium.ui_timeline import build_timeline_panel, build_timeline_tooltip
 from uartium.ui_toolbar import build_toolbar
 from uartium.ui_graphs import build_graph_panel, update_graph_data
@@ -44,7 +44,8 @@ from uartium.ui_tags import (
     TAG_LOG_WINDOW,
     TAG_MODE_RADIO,
     TAG_PORT_INPUT,
-    TAG_STATS_PANEL,
+    TAG_SETTINGS_WINDOW,
+    TAG_STATS_WINDOW,
     TAG_STATUS_ROW,
     TAG_TIMELINE_PLOT,
     TAG_TIMELINE_Y_AXIS,
@@ -210,7 +211,6 @@ class UartiumApp:
         
         # Settings
         self._current_theme = "dark"
-        self._stats_visible = True  # Toggle for statistics panel
         self._load_settings()
 
         # Initialize trigger engine
@@ -234,7 +234,6 @@ class UartiumApp:
                         theme = "dark"
                     self._current_theme = theme
                     self._level_filters = settings.get("level_filters", self._level_filters)
-                    self._stats_visible = settings.get("stats_visible", True)
                 logger.info(f"Settings loaded from {SETTINGS_FILE}")
             except json.JSONDecodeError as e:
                 logger.error(f"Invalid JSON in settings: {e}")
@@ -249,7 +248,6 @@ class UartiumApp:
             settings = {
                 "theme": self._current_theme,
                 "level_filters": self._level_filters,
-                "stats_visible": self._stats_visible,
                 "last_saved": datetime.now().isoformat(),
             }
             with open(SETTINGS_FILE, 'w') as f:
@@ -346,13 +344,13 @@ class UartiumApp:
         # ---- triggers window (hidden by default) ----
         build_triggers_window(self)
 
+        # ---- statistics window (hidden by default) ----
+        build_stats_window(self, LEVEL_COLORS)
+
         # ---- main viewport window ----
         with dpg.window(tag="primary_window"):
             # ===== CLEAN TOOLBAR - Arduino IDE Style =====
             build_toolbar(self)
-
-            # ===== COLLAPSIBLE STATISTICS PANEL =====
-            build_stats_panel(self, LEVEL_COLORS)
 
             dpg.add_spacer(height=8)
 
@@ -396,6 +394,7 @@ class UartiumApp:
         dpg.bind_item_theme(TAG_BTN_EXPORT_CSV, utility_theme)
         dpg.bind_item_theme(TAG_BTN_TOGGLE_STATS, utility_theme)
         dpg.bind_item_theme(TAG_BTN_SETTINGS, utility_theme)
+        dpg.bind_item_theme("btn_triggers", utility_theme)
 
         # Compact theme for the status row to reduce vertical footprint
         with dpg.theme() as _status_theme:
@@ -616,27 +615,40 @@ class UartiumApp:
         """Update the statistics display with current message counts and performance metrics."""
         if hasattr(self, '_stat_info'):
             try:
-                dpg.set_value(self._stat_info, f"INFO: {self._level_counts['INFO']}")
-                dpg.set_value(self._stat_warn, f"WARN: {self._level_counts['WARNING']}")
-                dpg.set_value(self._stat_error, f"ERROR: {self._level_counts['ERROR']}")
-                dpg.set_value(self._stat_debug, f"DEBUG: {self._level_counts['DEBUG']}")
-                
+                # Update individual level counts (just the number now, card has label)
+                dpg.set_value(self._stat_info, str(self._level_counts['INFO']))
+                dpg.set_value(self._stat_warn, str(self._level_counts['WARNING']))
+                dpg.set_value(self._stat_error, str(self._level_counts['ERROR']))
+                dpg.set_value(self._stat_debug, str(self._level_counts['DEBUG']))
+
                 # Calculate message rate and uptime
                 if self._start_time and self._session_start_time:
                     elapsed = time.time() - self._start_time
                     total_msgs = sum(self._level_counts.values())
                     rate = total_msgs / elapsed if elapsed > 0 else 0.0
-                    
+
                     # Calculate uptime in HH:MM:SS format
                     uptime_seconds = int(time.time() - self._session_start_time)
                     uptime_h = uptime_seconds // 3600
                     uptime_m = (uptime_seconds % 3600) // 60
                     uptime_s = uptime_seconds % 60
                     uptime_str = f"{uptime_h:02d}:{uptime_m:02d}:{uptime_s:02d}"
-                    
-                    dpg.set_value(self._stat_rate, 
-                        f"Rate: {rate:.2f} msg/sec | Total: {total_msgs} msgs | Errors: {self._error_count}")
-                    
+
+                    # Update performance metrics in stats window
+                    dpg.set_value(self._stat_rate, f"Rate: {rate:.2f} msg/sec")
+
+                    # Update total messages
+                    if hasattr(self, '_stat_total'):
+                        dpg.set_value(self._stat_total, f"Total Messages: {total_msgs}")
+
+                    # Update error count
+                    if hasattr(self, '_stat_errors_total'):
+                        dpg.set_value(self._stat_errors_total, f"Total Errors: {self._level_counts['ERROR']}")
+
+                    # Update session time
+                    if hasattr(self, '_stat_session_time'):
+                        dpg.set_value(self._stat_session_time, f"Session Duration: {uptime_str}")
+
                     # Update status bar uptime
                     if hasattr(self, '_status_uptime'):
                         dpg.set_value(self._status_uptime, f"Uptime: {uptime_str}")
@@ -962,12 +974,9 @@ class UartiumApp:
             self._set_error(f"Export failed: {e}")
     
     def _toggle_statistics(self) -> None:
-        """Toggle statistics panel visibility."""
-        self._stats_visible = not self._stats_visible
-        if dpg.does_item_exist(TAG_STATS_PANEL):
-            dpg.configure_item(TAG_STATS_PANEL, show=self._stats_visible)
-        self._save_settings()
-        logger.info(f"Statistics panel toggled: {self._stats_visible}")
+        """Open the statistics window."""
+        if dpg.does_item_exist(TAG_STATS_WINDOW):
+            dpg.show_item(TAG_STATS_WINDOW)
     
     def _set_error(self, error_msg: str) -> None:
         """Set error status with thread-safe locking."""
