@@ -30,6 +30,9 @@ from uartium.ui_settings import build_settings_window
 from uartium.ui_stats import build_stats_panel
 from uartium.ui_timeline import build_timeline_panel, build_timeline_tooltip
 from uartium.ui_toolbar import build_toolbar
+from uartium.ui_graphs import build_graph_panel, update_graph_data
+from uartium.triggers import TriggerEngine
+from uartium.ui_triggers import build_triggers_window, update_trigger_history
 from uartium.ui_tags import (
     TAG_BTN_EXPORT_CSV,
     TAG_BTN_SETTINGS,
@@ -209,7 +212,13 @@ class UartiumApp:
         self._current_theme = "dark"
         self._stats_visible = True  # Toggle for statistics panel
         self._load_settings()
-        
+
+        # Initialize trigger engine
+        self._trigger_engine = TriggerEngine()
+        self._trigger_engine.on_visual_alert = self._handle_visual_alert
+        self._trigger_engine.on_log_trigger = self._handle_log_trigger
+        self._trigger_alerts = []  # Active visual alerts
+
         logger.info(f"Uartium initialized with baudrate={initial_baudrate}")
     
     # -- settings persistence -----------------------------------------------
@@ -334,6 +343,9 @@ class UartiumApp:
         # ---- settings window (hidden by default) ----
         build_settings_window(self)
 
+        # ---- triggers window (hidden by default) ----
+        build_triggers_window(self)
+
         # ---- main viewport window ----
         with dpg.window(tag="primary_window"):
             # ===== CLEAN TOOLBAR - Arduino IDE Style =====
@@ -344,11 +356,13 @@ class UartiumApp:
 
             dpg.add_spacer(height=8)
 
-            # ===== MAIN CONTENT AREA - TWO COLUMN LAYOUT =====
+            # ===== MAIN CONTENT AREA - THREE COLUMN LAYOUT =====
             with dpg.group(horizontal=True):
                 build_log_and_data(self)
                 dpg.add_spacer(width=8)
                 build_timeline_panel(self, LEVEL_Y, LEVEL_PLOT_COLORS)
+                dpg.add_spacer(width=8)
+                build_graph_panel(self)
 
             # ---- timeline hover tooltip ----
             build_timeline_tooltip(self)
@@ -568,11 +582,30 @@ class UartiumApp:
             self._level_counts[level] += 1
             self._add_log_line(msg)
             self._add_timeline_point(msg)
-            # Update data monitor for any message with variables
+            # Update data monitor and graphs for any message with variables
             if "data_fields" in msg:
                 self._update_data_monitor(msg["data_fields"], level)
+                # Update graph data for numeric variables
+                if self._start_time:
+                    elapsed = msg["timestamp"] - self._start_time
+                    for var_name, info in msg["data_fields"].items():
+                        var_type = info.get("type", "str")
+                        value = info.get("value")
+                        if var_type in ("uint", "int", "float", "timestamp") and value is not None:
+                            try:
+                                numeric_value = float(value)
+                            except (ValueError, TypeError):
+                                logger.debug(f"Skipping non-numeric variable {var_name!r} value={value!r} type={var_type!r}")
+                                continue
+                            update_graph_data(self, var_name, numeric_value, elapsed, var_type)
+
+            # Evaluate triggers
+            trigger_events = self._trigger_engine.evaluate_message(msg)
+            for event in trigger_events:
+                update_trigger_history(self, event)
+
             batch += 1
-        
+
         # Update statistics display every second
         current_time = time.time()
         if current_time - self._last_stats_update >= 1.0:
@@ -698,14 +731,20 @@ class UartiumApp:
         if not dpg.does_item_exist(TAG_TIMELINE_PLOT):
             return
 
+        # Check for clicks to reset state (fixes stuck tooltip bug)
+        if dpg.is_mouse_button_clicked(dpg.mvMouseButton_Left):
+            self._last_hovered_msg_id = None
+            self._pinned_msg = None
+            # Don't hide tooltip on click - let hover logic handle it
+
         # Check if mouse is outside the plot area
         try:
             mx_screen, my_screen = dpg.get_mouse_pos()
             rect_min = dpg.get_item_rect_min(TAG_TIMELINE_PLOT)
             rect_max = dpg.get_item_rect_max(TAG_TIMELINE_PLOT)
-            
+
             if not (rect_min[0] <= mx_screen <= rect_max[0] and rect_min[1] <= my_screen <= rect_max[1]):
-                # Mouse left the plot - hide tooltip
+                # Mouse left the plot - hide tooltip and reset state
                 if dpg.does_item_exist(self._timeline_tooltip_window):
                     dpg.configure_item(self._timeline_tooltip_window, show=False)
                 self._last_hovered_msg_id = None
@@ -938,3 +977,21 @@ class UartiumApp:
             dpg.set_value(self._status_text, error_msg)
             dpg.configure_item(self._status_text, color=(255, 82, 82, 255))
             logger.warning(error_msg)
+
+    # -- trigger alert handlers ---------------------------------------------
+    def _handle_visual_alert(self, trigger_event) -> None:
+        """Handle visual alert for trigger."""
+        # Flash status bar with alert color
+        alert_msg = f"[TRIGGER] {trigger_event.trigger_name}: {trigger_event.message}"
+        dpg.set_value(self._status_text, alert_msg)
+        dpg.configure_item(self._status_text, color=(255, 193, 7, 255))
+        logger.info(f"Trigger fired: {alert_msg}")
+
+    def _handle_log_trigger(self, trigger_event) -> None:
+        """Handle log-to-file action for trigger."""
+        try:
+            with open("uartium_triggers.log", "a") as f:
+                timestamp_str = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(trigger_event.timestamp))
+                f.write(f"{timestamp_str} - {trigger_event.trigger_name}: {trigger_event.message}\n")
+        except Exception as e:
+            logger.error(f"Failed to log trigger: {e}")

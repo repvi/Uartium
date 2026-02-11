@@ -89,6 +89,13 @@ def build_toolbar(app) -> None:
                 height=28,
             )
             dpg.add_button(
+                label="Triggers",
+                tag="btn_triggers",
+                callback=lambda: dpg.show_item("triggers_window"),
+                width=70,
+                height=28,
+            )
+            dpg.add_button(
                 label="Help",
                 tag=TAG_BTN_SETTINGS,
                 callback=lambda: dpg.show_item(TAG_SETTINGS_WINDOW),

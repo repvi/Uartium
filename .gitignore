@@ -9,3 +9,6 @@ dist/
 build/
 .idea/
 .vscode/
+
+nul
+tmpclaude*
