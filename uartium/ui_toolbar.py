@@ -2,6 +2,7 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
 from uartium.ui_tags import (
     TAG_BAUD_COMBO,
     TAG_BTN_EXPORT_CSV,
@@ -42,9 +43,9 @@ def build_toolbar(app) -> None:
 
             # Port configuration group
             with dpg.group(horizontal=True):
-                dpg.add_text("Port:", color=(200, 200, 210, 255))
+                dpg.add_text("Port:", color=colors.UI_LABEL_GREY)
                 dpg.add_input_text(default_value="COM3", width=90, tag=TAG_PORT_INPUT)
-                dpg.add_text("Baud:", color=(200, 200, 210, 255))
+                dpg.add_text("Baud:", color=colors.UI_LABEL_GREY)
                 app._baud_input = dpg.add_combo(
                     items=[
                         "9600",
@@ -64,7 +65,7 @@ def build_toolbar(app) -> None:
 
             # Mode selector
             with dpg.group(horizontal=True):
-                dpg.add_text("Mode:", color=(200, 200, 210, 255))
+                dpg.add_text("Mode:", color=colors.UI_LABEL_GREY)
                 dpg.add_radio_button(
                     ["Demo", "Real Serial"],
                     default_value="Demo" if app._use_demo else "Real Serial",
@@ -108,6 +109,6 @@ def build_toolbar(app) -> None:
         dpg.add_spacer(height=2)
         with dpg.group(horizontal=True, tag=TAG_STATUS_ROW):
             dpg.add_spacer(width=18)
-            app._status_text = dpg.add_text("Ready", color=(180, 180, 180, 255))
+            app._status_text = dpg.add_text("Ready", color=colors.UI_READY)
             dpg.add_spacer(width=10)
-            app._status_uptime = dpg.add_text("Uptime: 00:00:00", color=(150, 150, 160, 255))
+            app._status_uptime = dpg.add_text("Uptime: 00:00:00", color=colors.UI_UPTIME)

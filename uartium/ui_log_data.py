@@ -2,6 +2,7 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
 from uartium.ui_tags import TAG_DATA_MONITOR_WINDOW, TAG_DATA_TABLE, TAG_LOG_WINDOW
 
 
@@ -12,7 +13,7 @@ def build_log_and_data(app) -> None:
         # Message Log
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=8)
-            dpg.add_text("MESSAGE LOG", color=(139, 233, 253, 255))
+            dpg.add_text("MESSAGE LOG", color=colors.UI_HEADER_CYAN)
         dpg.add_spacer(height=4)
         app._log_parent = dpg.add_child_window(height=360, border=True, tag=TAG_LOG_WINDOW)
 
@@ -27,7 +28,7 @@ def build_log_and_data(app) -> None:
         # Data Monitor
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=8)
-            dpg.add_text("DATA MONITOR", color=(139, 233, 253, 255))
+            dpg.add_text("DATA MONITOR", color=colors.UI_HEADER_CYAN)
         dpg.add_spacer(height=4)
         with dpg.child_window(height=160, border=True, tag=TAG_DATA_MONITOR_WINDOW):
             with dpg.table(

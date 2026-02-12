@@ -25,6 +25,7 @@ import threading
 import dearpygui.dearpygui as dpg
 
 from uartium.serial_backend import DemoSerialBackend, SerialBackend
+from uartium import colors
 from uartium.ui_log_data import build_log_and_data
 from uartium.ui_settings import build_settings_window
 from uartium.ui_stats import build_stats_window
@@ -64,59 +65,11 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# ---------------------------------------------------------------------------
-# Colour palette  (R, G, B, A  — 0-255)
-# ---------------------------------------------------------------------------
-LEVEL_COLORS: dict[str, tuple[int, int, int, int]] = {
-    "INFO":    (100, 210, 255, 255),   # Electric cyan-blue
-    "WARNING": (255, 193, 7, 255),     # Vibrant amber
-    "ERROR":   (255, 82, 82, 255),     # Hot red
-    "DEBUG":   (189, 147, 249, 255),   # Soft purple
-}
-
-# Modern Dark theme - Sleek midnight blue
-DARK_THEME = {
-    "window_bg": (18, 18, 24, 255),           # Deep midnight
-    "child_bg": (24, 24, 32, 255),            # Rich dark blue
-    "title_bg": (28, 28, 38, 255),            # Dark blue-grey
-    "title_bg_active": (40, 42, 54, 255),     # Slate blue
-    "button": (68, 71, 90, 255),              # Modern grey-blue
-    "button_hovered": (98, 114, 164, 255),    # Periwinkle blue
-    "button_active": (80, 250, 123, 255),     # Bright green
-    "header": (44, 47, 62, 255),              # Dark slate
-    "header_hovered": (68, 71, 90, 255),      # Light slate
-    "text": (248, 248, 242, 255),             # Soft white
-    "border": (68, 71, 90, 200),              # Subtle border
-    "frame_bg": (30, 30, 40, 255),            # Frame background
-    "frame_bg_hovered": (40, 42, 54, 255),    # Hovered frame
-    "accent": (139, 233, 253, 255),           # Cyan accent
-    "accent_dim": (98, 114, 164, 255),        # Dimmed accent
-    "success": (80, 250, 123, 255),           # Success green
-    "warning": (255, 193, 7, 255),            # Warning amber
-    "error": (255, 82, 82, 255),              # Error red
-}
-
-# Modern Light theme - Clean & Bright
-LIGHT_THEME = {
-    "window_bg": (248, 249, 250, 255),        # Off-white
-    "child_bg": (255, 255, 255, 255),         # Pure white
-    "title_bg": (233, 236, 239, 255),         # Light grey
-    "title_bg_active": (206, 212, 218, 255),  # Medium grey
-    "button": (233, 236, 239, 255),           # Light button
-    "button_hovered": (13, 110, 253, 255),    # Bright blue
-    "button_active": (10, 88, 202, 255),      # Deep blue
-    "header": (241, 243, 245, 255),           # Pale grey
-    "header_hovered": (222, 226, 230, 255),   # Medium grey
-    "text": (33, 37, 41, 255),                # Dark text
-    "border": (206, 212, 218, 180),           # Subtle border
-    "frame_bg": (248, 249, 250, 255),         # Frame background
-    "frame_bg_hovered": (233, 236, 239, 255), # Hovered frame
-    "accent": (13, 110, 253, 255),            # Blue accent
-    "accent_dim": (108, 117, 125, 255),       # Dimmed accent
-    "success": (25, 135, 84, 255),            # Success green
-    "warning": (255, 193, 7, 255),            # Warning amber
-    "error": (255, 82, 82, 255),              # Error red
-}
+# Import color definitions from centralized colors module
+LEVEL_COLORS = colors.LEVEL_COLORS
+DARK_THEME = colors.DARK_THEME
+LIGHT_THEME = colors.LIGHT_THEME
+LEVEL_PLOT_COLORS = colors.LEVEL_PLOT_COLORS
 
 LEVEL_BADGE: dict[str, str] = {
     "INFO":    "[INFO]  ",
@@ -131,14 +84,6 @@ LEVEL_Y: dict[str, float] = {
     "INFO":    2.0,
     "WARNING": 3.0,
     "ERROR":   4.0,
-}
-
-# matching scatter colours per level  (normalised 0-1 for plot themes)
-LEVEL_PLOT_COLORS: dict[str, tuple[float, float, float, float]] = {
-    "INFO":    (0.71, 0.82, 1.00, 1.0),
-    "WARNING": (1.00, 0.78, 0.24, 1.0),
-    "ERROR":   (1.00, 0.31, 0.31, 1.0),
-    "DEBUG":   (0.67, 0.67, 0.67, 1.0),
 }
 
 # ---------------------------------------------------------------------------
@@ -217,6 +162,8 @@ class UartiumApp:
         self._trigger_engine = TriggerEngine()
         self._trigger_engine.on_visual_alert = self._handle_visual_alert
         self._trigger_engine.on_log_trigger = self._handle_log_trigger
+        # Audio handler (added) - plays a short OS-specific sound or falls back to terminal bell
+        self._trigger_engine.on_audio_alert = self._handle_audio_alert
         self._trigger_alerts = []  # Active visual alerts
 
         logger.info(f"Uartium initialized with baudrate={initial_baudrate}")
@@ -368,28 +315,28 @@ class UartiumApp:
         # ---- Enhanced button themes ----
         with dpg.theme() as start_theme:
             with dpg.theme_component(dpg.mvButton):
-                dpg.add_theme_color(dpg.mvThemeCol_Button, (46, 160, 67, 255))         # Modern green
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (72, 187, 120, 255)) # Bright green
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (34, 139, 34, 255))   # Forest green
-                dpg.add_theme_color(dpg.mvThemeCol_Text, (255, 255, 255, 255))         # White text
+                dpg.add_theme_color(dpg.mvThemeCol_Button, colors.START_BUTTON_DEFAULT)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, colors.START_BUTTON_HOVERED)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, colors.START_BUTTON_ACTIVE)
+                dpg.add_theme_color(dpg.mvThemeCol_Text, colors.START_BUTTON_TEXT)
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
         dpg.bind_item_theme(TAG_BTN_START, start_theme)
 
         with dpg.theme() as stop_theme:
             with dpg.theme_component(dpg.mvButton):
-                dpg.add_theme_color(dpg.mvThemeCol_Button, (220, 53, 69, 255))         # Modern red
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (248, 81, 73, 255))  # Bright red
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (176, 42, 55, 255))   # Deep red
-                dpg.add_theme_color(dpg.mvThemeCol_Text, (255, 255, 255, 255))         # White text
+                dpg.add_theme_color(dpg.mvThemeCol_Button, colors.STOP_BUTTON_DEFAULT)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, colors.STOP_BUTTON_HOVERED)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, colors.STOP_BUTTON_ACTIVE)
+                dpg.add_theme_color(dpg.mvThemeCol_Text, colors.STOP_BUTTON_TEXT)
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
         dpg.bind_item_theme(TAG_BTN_STOP, stop_theme)
-        
+
         # Export and utility button theme
         with dpg.theme() as utility_theme:
             with dpg.theme_component(dpg.mvButton):
-                dpg.add_theme_color(dpg.mvThemeCol_Button, (68, 71, 90, 255))          # Modern grey-blue
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, (98, 114, 164, 255)) # Bright periwinkle
-                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, (80, 250, 123, 255))  # Active green
+                dpg.add_theme_color(dpg.mvThemeCol_Button, colors.UTILITY_BUTTON_DEFAULT)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonHovered, colors.UTILITY_BUTTON_HOVERED)
+                dpg.add_theme_color(dpg.mvThemeCol_ButtonActive, colors.UTILITY_BUTTON_ACTIVE)
                 dpg.add_theme_style(dpg.mvStyleVar_FrameRounding, 6)
         dpg.bind_item_theme(TAG_BTN_EXPORT_CSV, utility_theme)
         dpg.bind_item_theme(TAG_BTN_TOGGLE_STATS, utility_theme)
@@ -460,7 +407,7 @@ class UartiumApp:
             self._save_settings()
             status_msg = f"Theme changed to {theme_name.capitalize()}"
             dpg.set_value(self._status_text, status_msg)
-            dpg.configure_item(self._status_text, color=(139, 233, 253, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_INFO)
             logger.info(f"Theme changed to: {theme_name}")
         except Exception as e:
             logger.error(f"Error changing theme: {e}")
@@ -490,7 +437,7 @@ class UartiumApp:
             self.backend.baudrate = self._selected_baudrate
             self.backend.start()
             dpg.set_value(self._status_text, f"●  Running @ {self._selected_baudrate} baud")
-            dpg.configure_item(self._status_text, color=(80, 250, 123, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_RUNNING)
 
     def _on_start(self) -> None:
         """Start serial monitoring with error handling and recovery."""
@@ -519,11 +466,11 @@ class UartiumApp:
             self._is_running = True
             self._reconnect_attempts = 0
             self._error_count = 0
-            
+
             dpg.configure_item(TAG_BTN_START, enabled=False)
             dpg.configure_item(TAG_BTN_STOP, enabled=True)
             dpg.set_value(self._status_text, status_msg)
-            dpg.configure_item(self._status_text, color=(80, 250, 123, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_RUNNING)
             logger.info(f"Serial monitoring started: {status_msg}")
         except Exception as e:
             logger.error(f"Failed to start monitoring: {e}")
@@ -537,7 +484,7 @@ class UartiumApp:
             dpg.configure_item(TAG_BTN_START, enabled=True)
             dpg.configure_item(TAG_BTN_STOP, enabled=False)
             dpg.set_value(self._status_text, "Stopped")
-            dpg.configure_item(self._status_text, color=(180, 180, 180, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_STOPPED)
             self._is_running = False
             logger.info("Serial monitoring stopped")
         except Exception as e:
@@ -965,10 +912,10 @@ class UartiumApp:
                                 '',
                                 ''
                             ])
-            
+
             logger.info(f"Data exported to {filename}")
             dpg.set_value(self._status_text, f"[OK] Exported to {filename}")
-            dpg.configure_item(self._status_text, color=(80, 250, 123, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_SUCCESS)
         except Exception as e:
             logger.error(f"Export failed: {e}")
             self._set_error(f"Export failed: {e}")
@@ -984,7 +931,7 @@ class UartiumApp:
             self._last_error = error_msg
             self._error_count += 1
             dpg.set_value(self._status_text, error_msg)
-            dpg.configure_item(self._status_text, color=(255, 82, 82, 255))
+            dpg.configure_item(self._status_text, color=colors.STATUS_ERROR)
             logger.warning(error_msg)
 
     # -- trigger alert handlers ---------------------------------------------
@@ -993,8 +940,97 @@ class UartiumApp:
         # Flash status bar with alert color
         alert_msg = f"[TRIGGER] {trigger_event.trigger_name}: {trigger_event.message}"
         dpg.set_value(self._status_text, alert_msg)
-        dpg.configure_item(self._status_text, color=(255, 193, 7, 255))
+        dpg.configure_item(self._status_text, color=colors.STATUS_WARNING)
         logger.info(f"Trigger fired: {alert_msg}")
+
+    def _handle_audio_alert(self, trigger_event) -> None:
+        """Play an audio alert in a cross-platform way.
+
+        This implementation:
+        - Uses `winsound` on Windows
+        - Uses `afplay` on macOS if available
+        - On Linux prefers `paplay` or `aplay` if present, or `xdg-open` as last resort
+        - If a custom audio file is configured (`self._audio_alert_file`) it will try to play it
+          via the first available player. If `playsound` is installed it will use it in a
+          background thread.
+        - Final fallback: ASCII bell
+        """
+        import os
+        import sys
+        import threading
+        import subprocess
+        import shutil
+
+        def _play_cmd(cmd: list[str]) -> None:
+            try:
+                subprocess.run(cmd, check=False)
+            except Exception:
+                pass
+
+        try:
+            # 1) Windows native beep
+            if os.name == 'nt':
+                try:
+                    import winsound
+                    winsound.MessageBeep(winsound.MB_ICONEXCLAMATION)
+                    return
+                except Exception:
+                    pass
+
+            # 2) If a custom audio file is set, try to play it with available players
+            audio_file = getattr(self, '_audio_alert_file', None)
+            players = []
+            # prefer platform-native players
+            if sys.platform == 'darwin':
+                players = [['afplay', audio_file]] if audio_file else [['afplay', '/System/Library/Sounds/Ping.aiff']]
+            elif sys.platform.startswith('linux'):
+                # paplay/aplay are common; xdg-open can open default app
+                players = []
+                if audio_file:
+                    players.extend([['paplay', audio_file], ['aplay', audio_file], ['xdg-open', audio_file]])
+                else:
+                    # try standard freedesktop sounds
+                    candidates = [
+                        '/usr/share/sounds/freedesktop/stereo/complete.oga',
+                        '/usr/share/sounds/freedesktop/stereo/alert.oga',
+                        '/usr/share/sounds/ubuntu/stereo/desktop-login.ogg'
+                    ]
+                    for c in candidates:
+                        if os.path.exists(c):
+                            players.extend([['paplay', c], ['aplay', c]])
+                            break
+                    # fallback to xdg-open if nothing else
+                    players.append(['xdg-open', audio_file or ''])
+            else:
+                # other POSIX (including mac fallback)
+                if audio_file:
+                    players = [['afplay', audio_file], ['xdg-open', audio_file]]
+                else:
+                    players = [['afplay', '/System/Library/Sounds/Ping.aiff']]
+
+            # Try to find an available command and play
+            for p in players:
+                cmd_bin = p[0]
+                if shutil.which(cmd_bin):
+                    # For xdg-open, ensure file exists
+                    if cmd_bin == 'xdg-open' and not audio_file:
+                        continue
+                    threading.Thread(target=_play_cmd, args=(p,), daemon=True).start()
+                    return
+
+            # 3) If playsound is installed and audio_file exists, use it
+            if audio_file and os.path.exists(audio_file):
+                try:
+                    from playsound import playsound  # type: ignore
+                    threading.Thread(target=playsound, args=(audio_file,), daemon=True).start()
+                    return
+                except Exception:
+                    pass
+
+            # 4) Final fallback: ASCII bell
+            print('\a', end='', flush=True)
+        except Exception as e:
+            logger.error(f"Audio alert failed: {e}")
 
     def _handle_log_trigger(self, trigger_event) -> None:
         """Handle log-to-file action for trigger."""

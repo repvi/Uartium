@@ -15,23 +15,13 @@ from collections import deque
 from typing import TYPE_CHECKING
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
+
 if TYPE_CHECKING:
     from uartium.gui import UartiumApp
 
 # Maximum data points to keep per variable
 MAX_GRAPH_POINTS = 1000
-
-# Color palette for graph lines (cycle through these colors)
-GRAPH_LINE_COLORS = [
-    (100, 210, 255, 255),   # Cyan
-    (80, 250, 123, 255),    # Green
-    (255, 193, 7, 255),     # Amber
-    (255, 121, 198, 255),   # Pink
-    (189, 147, 249, 255),   # Purple
-    (139, 233, 253, 255),   # Light cyan
-    (255, 184, 108, 255),   # Orange
-    (80, 250, 210, 255),    # Turquoise
-]
 
 
 def build_graph_panel(app: UartiumApp) -> None:
@@ -63,7 +53,7 @@ def build_graph_panel(app: UartiumApp) -> None:
         border=True,
         tag="graph_panel"
     ):
-        dpg.add_text("Real-Time Variable Graphs", color=(139, 233, 253, 255))
+        dpg.add_text("Real-Time Variable Graphs", color=colors.UI_HEADER_CYAN)
         dpg.add_separator()
         dpg.add_spacer(height=4)
 
@@ -108,7 +98,7 @@ def build_graph_panel(app: UartiumApp) -> None:
         dpg.add_spacer(height=4)
 
         # Variable selector section
-        dpg.add_text("Available Variables (check to graph)", color=(200, 200, 200, 255))
+        dpg.add_text("Available Variables (check to graph)", color=colors.UI_TEXT_LIGHT)
         dpg.add_spacer(height=4)
 
         # Scrollable area for variable checkboxes
@@ -117,7 +107,7 @@ def build_graph_panel(app: UartiumApp) -> None:
             border=True,
             tag="var_selector_window"
         ):
-            dpg.add_text("(Numeric variables will appear here)", color=(128, 128, 128, 255), tag="var_placeholder")
+            dpg.add_text("(Numeric variables will appear here)", color=colors.UI_PLACEHOLDER, tag="var_placeholder")
 
 
 def update_graph_data(app: UartiumApp, var_name: str, value: float, timestamp: float, var_type: str) -> None:
@@ -205,7 +195,7 @@ def _create_graph_series(app: UartiumApp, var_name: str) -> None:
         return  # Already exists
 
     # Assign a color from the palette
-    color = GRAPH_LINE_COLORS[app._graph_color_index % len(GRAPH_LINE_COLORS)]
+    color = colors.GRAPH_LINE_COLORS[app._graph_color_index % len(colors.GRAPH_LINE_COLORS)]
     app._graph_color_index += 1
 
     # Create the line series

@@ -2,6 +2,7 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
 from uartium.ui_tags import TAG_SETTINGS_WINDOW, TAG_THEME_SELECTOR
 
 
@@ -18,7 +19,7 @@ def build_settings_window(app) -> None:
         no_resize=True,
     ):
         dpg.add_spacer(height=8)
-        dpg.add_text("[APPEARANCE] Theme Selection", color=(139, 233, 253, 255))
+        dpg.add_text("[APPEARANCE] Theme Selection", color=colors.UI_HEADER_CYAN)
         dpg.add_spacer(height=12)
 
         with dpg.child_window(height=120, border=True):
@@ -36,11 +37,11 @@ def build_settings_window(app) -> None:
             dpg.add_spacer(height=6)
 
         dpg.add_spacer(height=20)
-        dpg.add_text("[SYSTEM] Status", color=(139, 233, 253, 255))
+        dpg.add_text("[SYSTEM] Status", color=colors.UI_HEADER_CYAN)
         dpg.add_spacer(height=8)
         dpg.add_text(
             "Status: Configured | Version: 1.0 Enterprise",
-            color=(180, 200, 210, 255),
+            color=colors.UI_TEXT_STATUS,
         )
         dpg.add_spacer(height=20)
 

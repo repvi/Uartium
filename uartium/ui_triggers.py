@@ -11,6 +11,7 @@ import uuid
 import time
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
 from uartium.triggers import (
     TriggerCondition,
     TriggerType,
@@ -34,13 +35,13 @@ def build_triggers_window(app: UartiumApp) -> None:
         modal=False,
         on_close=lambda: dpg.hide_item("triggers_window")
     ):
-        dpg.add_text("Automated Trigger Rules", color=(139, 233, 253, 255))
+        dpg.add_text("Automated Trigger Rules", color=colors.UI_HEADER_CYAN)
         dpg.add_separator()
         dpg.add_spacer(height=8)
 
         # Trigger list
         with dpg.child_window(height=300, border=True, tag="trigger_list_window"):
-            dpg.add_text("(No triggers configured)", color=(128, 128, 128, 255), tag="trigger_list_placeholder")
+            dpg.add_text("(No triggers configured)", color=colors.UI_PLACEHOLDER, tag="trigger_list_placeholder")
 
         dpg.add_spacer(height=8)
 
@@ -85,9 +86,9 @@ def build_triggers_window(app: UartiumApp) -> None:
         dpg.add_separator()
 
         # Trigger history
-        dpg.add_text("Trigger History (Recent Fires)", color=(200, 200, 200, 255))
+        dpg.add_text("Trigger History (Recent Fires)", color=colors.UI_TEXT_LIGHT)
         with dpg.child_window(height=150, border=True, tag="trigger_history_window"):
-            dpg.add_text("(No triggers fired yet)", color=(128, 128, 128, 255), tag="trigger_history_placeholder")
+            dpg.add_text("(No triggers fired yet)", color=colors.UI_PLACEHOLDER, tag="trigger_history_placeholder")
 
 
 def _show_add_trigger_dialog(app: UartiumApp, trigger_type: TriggerType) -> None:
@@ -184,7 +185,7 @@ def _build_variable_threshold_inputs(app: UartiumApp) -> None:
         dpg.add_spacer(height=4)
         dpg.add_text(
             "Or enter custom variable name:",
-            color=(150, 150, 150, 255),
+            color=colors.UI_TEXT_DIM,
             tag="custom_var_label",
             show=False  # Hidden by default
         )
@@ -269,7 +270,7 @@ def _create_trigger_from_dialog(app: UartiumApp, trigger_type: TriggerType, dial
             # Show error in status bar if app has it
             if hasattr(app, '_status_text'):
                 dpg.set_value(app._status_text, "[ERROR] Variable name cannot be empty")
-                dpg.configure_item(app._status_text, color=(255, 82, 82, 255))
+                dpg.configure_item(app._status_text, color=colors.STATUS_ERROR)
             return
 
         var_name = var_name.strip()
@@ -366,11 +367,11 @@ def _add_trigger_to_list(app: UartiumApp, trigger: TriggerCondition) -> None:
 
             # Trigger name and description
             desc = _get_trigger_description(trigger)
-            color = (80, 250, 123, 255) if trigger.enabled else (128, 128, 128, 255)
+            color = colors.TRIGGER_ENABLED if trigger.enabled else colors.TRIGGER_DISABLED
             dpg.add_text(f"{trigger.name}: {desc}", color=color)
 
             # Fire count
-            dpg.add_text(f"(Fired: {trigger.fire_count})", color=(200, 200, 200, 255))
+            dpg.add_text(f"(Fired: {trigger.fire_count})", color=colors.UI_TEXT_LIGHT)
 
             # Delete button
             dpg.add_button(
@@ -411,7 +412,7 @@ def _clear_all_triggers(app: UartiumApp) -> None:
     if not dpg.does_item_exist("trigger_list_placeholder"):
         dpg.add_text(
             "(No triggers configured)",
-            color=(128, 128, 128, 255),
+            color=colors.UI_PLACEHOLDER,
             tag="trigger_list_placeholder",
             parent="trigger_list_window"
         )
@@ -424,11 +425,11 @@ def _save_trigger_config(app: UartiumApp) -> None:
         # Show success message in status bar
         if hasattr(app, '_status_text'):
             dpg.set_value(app._status_text, "[OK] Triggers saved to uartium_triggers.json")
-            dpg.configure_item(app._status_text, color=(80, 250, 123, 255))
+            dpg.configure_item(app._status_text, color=colors.STATUS_SUCCESS)
     except Exception as e:
         if hasattr(app, '_status_text'):
             dpg.set_value(app._status_text, f"[ERROR] Failed to save triggers: {e}")
-            dpg.configure_item(app._status_text, color=(255, 82, 82, 255))
+            dpg.configure_item(app._status_text, color=colors.STATUS_ERROR)
 
 
 def _load_trigger_config(app: UartiumApp) -> None:
@@ -439,11 +440,11 @@ def _load_trigger_config(app: UartiumApp) -> None:
         # Show success message
         if hasattr(app, '_status_text'):
             dpg.set_value(app._status_text, "[OK] Triggers loaded from uartium_triggers.json")
-            dpg.configure_item(app._status_text, color=(80, 250, 123, 255))
+            dpg.configure_item(app._status_text, color=colors.STATUS_SUCCESS)
     except Exception as e:
         if hasattr(app, '_status_text'):
             dpg.set_value(app._status_text, f"[ERROR] Failed to load triggers: {e}")
-            dpg.configure_item(app._status_text, color=(255, 82, 82, 255))
+            dpg.configure_item(app._status_text, color=colors.STATUS_ERROR)
 
 
 def update_trigger_history(app: UartiumApp, trigger_event) -> None:
@@ -463,6 +464,6 @@ def update_trigger_history(app: UartiumApp, trigger_event) -> None:
 
     dpg.add_text(
         history_text,
-        color=(255, 193, 7, 255),
+        color=colors.TRIGGER_FIRED,
         parent="trigger_history_window"
     )

@@ -1787,3 +1787,89 @@
 2026-02-10 19:03:26,291 - uartium.gui - INFO - UI build completed successfully
 2026-02-10 19:03:26,508 - uartium.gui - INFO - Uartium application started successfully
 2026-02-10 19:03:47,824 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 12:45:06,619 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-11 12:45:06,621 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-11 12:45:06,630 - uartium.gui - INFO - UI build completed successfully
+2026-02-11 12:45:06,885 - uartium.gui - INFO - Uartium application started successfully
+2026-02-11 12:45:10,241 - uartium.gui - INFO - Switched to Demo mode
+2026-02-11 12:45:10,242 - uartium.gui - WARNING - [INFO] Switched to Demo mode
+2026-02-11 12:45:11,143 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 12:45:16,541 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-11 21:04:16,635 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-11 21:04:16,636 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-11 21:04:16,664 - uartium.gui - INFO - UI build completed successfully
+2026-02-11 21:04:16,992 - uartium.gui - INFO - Uartium application started successfully
+2026-02-11 21:04:18,839 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 21:04:41,300 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=29.9)
+2026-02-11 21:04:42,150 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=26.4)
+2026-02-11 21:04:46,625 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=27.5)
+2026-02-11 21:04:51,414 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=20.2)
+2026-02-11 21:04:54,301 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=30.5)
+2026-02-11 21:04:55,486 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=27.7)
+2026-02-11 21:04:55,987 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=18.2)
+2026-02-11 21:05:00,242 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=31.2)
+2026-02-11 21:05:03,444 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=19.2)
+2026-02-11 21:05:10,705 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=34.0)
+2026-02-11 21:05:11,327 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=43.3)
+2026-02-11 21:05:12,981 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=28.5)
+2026-02-11 21:05:17,833 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=21.1)
+2026-02-11 21:05:18,253 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=22.9)
+2026-02-11 21:05:18,971 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=39.4)
+2026-02-11 21:05:20,438 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=39.8)
+2026-02-11 21:05:21,156 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=40.1)
+2026-02-11 21:05:29,637 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=37.0)
+2026-02-11 21:05:32,890 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=24.7)
+2026-02-11 21:05:33,272 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=42.3)
+2026-02-11 21:05:35,711 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=44.2)
+2026-02-11 21:05:39,470 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=38.2)
+2026-02-11 21:05:40,103 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=34.7)
+2026-02-11 21:05:40,601 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=27.2)
+2026-02-11 21:05:41,354 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=28.5)
+2026-02-11 21:05:42,678 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=21.2)
+2026-02-11 21:05:44,608 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=25.7)
+2026-02-11 21:05:46,127 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=28.0)
+2026-02-11 21:05:47,696 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=39.8)
+2026-02-11 21:05:49,132 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=33.4)
+2026-02-11 21:05:56,394 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=38.3)
+2026-02-11 21:05:57,378 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=24.8)
+2026-02-11 21:05:57,808 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=42.3)
+2026-02-11 21:05:58,224 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=43.6)
+2026-02-11 21:06:00,077 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=37.1)
+2026-02-11 21:06:00,798 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=26.5)
+2026-02-11 21:06:02,163 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=22.7)
+2026-02-11 21:06:03,599 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=28.2)
+2026-02-11 21:06:05,469 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=43.1)
+2026-02-11 21:06:10,014 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=33.3)
+2026-02-11 21:06:10,611 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=32.1)
+2026-02-11 21:06:12,683 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=18.4)
+2026-02-11 21:06:14,906 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=25.5)
+2026-02-11 21:06:16,022 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=23.2)
+2026-02-11 21:06:21,430 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=39.9)
+2026-02-11 21:06:22,397 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=19.7)
+2026-02-11 21:06:23,481 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=29.5)
+2026-02-11 21:06:24,617 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=37.8)
+2026-02-11 21:06:25,452 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=24.6)
+2026-02-11 21:06:27,637 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=26.6)
+2026-02-11 21:06:30,879 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=29.6)
+2026-02-11 21:06:32,795 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=30.3)
+2026-02-11 21:06:33,911 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=32.7)
+2026-02-11 21:06:34,180 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=18.1)
+2026-02-11 21:06:35,430 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=21.9)
+2026-02-11 21:06:37,737 - uartium.gui - INFO - Trigger fired: [TRIGGER] New Trigger: temp > 0.0 (value=23.8)
+2026-02-11 21:13:46,982 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-11 21:13:46,982 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-11 21:13:46,987 - uartium.gui - INFO - UI build completed successfully
+2026-02-11 21:13:47,176 - uartium.gui - INFO - Uartium application started successfully
+2026-02-11 21:13:49,190 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 21:13:56,755 - uartium.gui - INFO - Serial monitoring stopped
+2026-02-11 21:13:57,601 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 21:14:24,907 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-11 21:14:24,908 - uartium.gui - INFO - Theme changed to: light
+2026-02-11 21:14:28,365 - uartium.gui - INFO - Settings saved to uartium_settings.json
+2026-02-11 21:14:28,365 - uartium.gui - INFO - Theme changed to: dark
+2026-02-11 21:25:28,894 - uartium.gui - INFO - Settings loaded from uartium_settings.json
+2026-02-11 21:25:28,894 - uartium.gui - INFO - Uartium initialized with baudrate=115200
+2026-02-11 21:25:28,899 - uartium.gui - INFO - UI build completed successfully
+2026-02-11 21:25:29,079 - uartium.gui - INFO - Uartium application started successfully
+2026-02-11 21:25:30,384 - uartium.gui - INFO - Serial monitoring started: Active - Demo Mode
+2026-02-11 21:25:41,809 - uartium.gui - INFO - Serial monitoring stopped

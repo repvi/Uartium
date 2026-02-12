@@ -2,6 +2,7 @@
 
 import dearpygui.dearpygui as dpg
 
+from uartium import colors
 from uartium.ui_tags import (
     TAG_FILTER_DEBUG,
     TAG_FILTER_ERROR,
@@ -19,12 +20,12 @@ def build_timeline_panel(app, level_y: dict, level_plot_colors: dict) -> None:
         # Title and filters
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=8)
-            dpg.add_text("EVENT TIMELINE", color=(139, 233, 253, 255))
+            dpg.add_text("EVENT TIMELINE", color=colors.UI_HEADER_CYAN)
         dpg.add_spacer(height=2)
         # Static filter rows (no scrolling)
         with dpg.group(horizontal=True):
             dpg.add_spacer(width=8)
-            dpg.add_text("Show:", color=(180, 180, 190, 255))
+            dpg.add_text("Show:", color=colors.UI_LABEL_DIM)
             dpg.add_spacer(width=1)
             dpg.add_checkbox(
                 label="INFO",
@@ -107,12 +108,12 @@ def build_timeline_tooltip(app) -> None:
         width=120,
         height=150,
     ):
-        dpg.add_text("", tag=app._timeline_tooltip_header, color=(139, 233, 253, 255), wrap=110)
-        dpg.add_text("", tag=app._timeline_tooltip_body, color=(220, 220, 230, 255), wrap=110)
+        dpg.add_text("", tag=app._timeline_tooltip_header, color=colors.TOOLTIP_HEADER, wrap=110)
+        dpg.add_text("", tag=app._timeline_tooltip_body, color=colors.TOOLTIP_BODY, wrap=110)
 
     # Tooltip theme: semi-transparent background and tighter padding
     with dpg.theme() as _tooltip_theme:
         with dpg.theme_component(dpg.mvAll):
-            dpg.add_theme_color(dpg.mvThemeCol_WindowBg, (24, 24, 32, 128))
+            dpg.add_theme_color(dpg.mvThemeCol_WindowBg, colors.TOOLTIP_BG)
             dpg.add_theme_style(dpg.mvStyleVar_WindowPadding, 8, 6)
     dpg.bind_item_theme(app._timeline_tooltip_window, _tooltip_theme)
